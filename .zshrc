@@ -1,4 +1,6 @@
 
+export PATH="$PATH:~/bin/"
+
 # 補完機能
 autoload -U compinit
 compinit

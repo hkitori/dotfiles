@@ -1,4 +1,5 @@
 
+export PATH="$PATH:~/bin/"
 
 # peco history selection (ctrl + r)
 function peco-select-history() {

@@ -1,0 +1,126 @@
+# https://qiita.com/kooooooooooooooooohe/items/fb106e0a0f0969b4ee38
+
+# 基本は github.com のレポジトリーを指定するだけ
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+# git clone 後、実行すべきコマンドがある場合はこんな感じ
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+hook_post_update = '''
+if dein#util#_is_windows()
+    let cmd = 'tools\\update-dll-mingw'
+elseif dein#util#_is_cygwin()
+    let cmd = 'make -f make_cygwin.mak'
+    elseif executable('gmake')
+    let cmd = 'gmake'
+    else
+    let cmd = 'make'
+    endif
+    let g:dein#plugin.build = cmd
+'''
+
+#ステータスラインのテーマ
+[[plugins]]
+repo    = 'vim-airline/vim-airline'
+depends = ['vim-airline-themes']
+
+#ステータスラインのテーマ
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+#コードの色
+[[plugins]]
+repo = 'tomasr/molokai'
+
+#vimfilerを使うために必要
+[[plugins]]
+repo =  'Shougo/unite.vim'
+
+#ディレクトリ表示
+[[plugins]]
+repo = 'Shougo/vimfiler'
+
+#ディレクトリ表示
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+#括弧補完
+[[plugins]]
+repo = 'Townk/vim-autoclose'
+
+#syntax check
+[[plugins]]
+repo =  'scrooloose/syntastic'
+
+# インデントの可視化　上手く機能してない？
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+
+# インデントの可視化
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+
+# 末尾の全角と半角の空白文字を赤くハイライト
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'szw/vim-tags'
+
+#gitの便利操作がvimで出来る Gblameなど
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+#gitの変更箇所を左側に表示してくれる
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+#tagbarがでる関数一覧などが出る
+[[plugins]]
+repo = 'majutsushi/tagbar'
+
+#細かい整形が出来るようなる
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+
+#ctrl+p でファイルあいまい検索ができる
+[[plugins]]
+repo = 'ctrlpvim/ctrlp.vim'
+
+#入力補完
+#[[plugins]]
+#repo = 'Shougo/neocomplcache'
+
+# スニペットの補完機能
+[[plugins]]
+repo = 'Shougo/neosnippet'
+
+# スニペットé
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+#閉じ括弧補完
+#[[plugins]]
+#repo = 'cohama/lexima.vim'
+
+#検索結果の件数を表示
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+
+#fで検索後移動できるようにする
+[[plugins]]
+repo = 'rhysd/clever-f.vim'
+
+[[plugins]]
+repo = 'kana/vim-operator-user'
+
+#コピーしたところが一瞬ハイライトされる 入らなかった
+[[plugins]]
+repo = 'haya14busa/vim-operator-flashy'
+
+#html補完
+[[plugins]]
+repo = 'mattn/emmet-vim'
+
+

@@ -19,7 +19,11 @@ HISTFILE=~/.zsh_history
 HISTSIZE=6000000
 SAVEHIST=6000000
 setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
+
+# .zshhistoryの共有
+setopt share_history
+# 履歴をインクリメンタルに追加
+setopt inc_append_history
 
 # コマンド履歴検索
 autoload history-search-end
@@ -48,6 +52,7 @@ alias rt="echo tmux source-file ~/.tmux.conf; tmux source-file ~/.tmux.conf"
 # alias for git
 alias st="echo git status; git status"
 alias gr="echo git graph; git graph"
+alias cm="echo git commit -m ...; git commit -m $*"
 alias pull="echo git pull; git pull"
 alias push="echo git push; git push"
 
@@ -70,4 +75,11 @@ zplug "olivierverdier/zsh-git-prompt"
 #export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 #export LS_COLORS=gxBxhxDxfxhxhxhxhxcxcx
 
-
+# peco history search (ctrl + r)
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection

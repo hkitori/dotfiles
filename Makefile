@@ -1,3 +1,7 @@
+# 参考:
+#  https://qiita.com/b4b4r07/items/b70178e021bef12cd4a2
+#  https://github.com/b4b4r07/dotfiles
+
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard .??*) bin
 EXCLUSIONS := .DS_Store .git .gitmodules .bashrc

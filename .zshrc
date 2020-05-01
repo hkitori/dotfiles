@@ -58,10 +58,12 @@ alias cm="echo git commit -m ...; git commit -m $*"
 alias pull="echo git pull; git pull"
 alias push="echo git push; git push"
 
+# https://sanoto-nittc.hatenablog.com/entry/2017/12/16/213735
 # zplug
-[ -f /usr/share/zplug/init.zsh ] && ZPLUG_HOME="/usr/share/zplug" # for raspi
-[ -f /usr/local/opt/zplug/init.zsh ] && ZPLUG_HOME="/usr/local/opt/zplug" # for osx
-source ${ZPLUG_HOME}/init.zsh
+if [[ ! -d ~/.zplug ]];then
+  git clone https://github.com/zplug/zplug ~/.zplug
+fi
+source ~/.zplug/init.zsh
 
 # https://tshst.tumblr.com/post/151599091861/zshの環境を整える
 #-- zsh-syntax-highlighting

@@ -24,6 +24,9 @@ elseif dein#util#_is_cygwin()
 [[plugins]]
 repo    = 'vim-airline/vim-airline'
 depends = ['vim-airline-themes']
+hook_add = '''
+    let g:airline_theme = 'molokai'
+'''
 
 #ステータスラインのテーマ
 [[plugins]]
@@ -37,7 +40,7 @@ repo = 'tomasr/molokai'
 [[plugins]]
 repo =  'Shougo/unite.vim'
 
-#ディレクトリ表示
+# ディレクトリ表示
 [[plugins]]
 repo = 'Shougo/vimfiler'
 
@@ -45,17 +48,20 @@ repo = 'Shougo/vimfiler'
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 
-#括弧補完
+# 括弧補完
 [[plugins]]
 repo = 'Townk/vim-autoclose'
 
-#syntax check
+# syntax check
 [[plugins]]
 repo =  'scrooloose/syntastic'
 
 # インデントの可視化　上手く機能してない？
 [[plugins]]
 repo = 'Yggdroot/indentLine'
+hook_add = '''
+    let g:indentLine_char = '¦' "use ¦, ┆ or │
+'''
 
 # インデントの可視化
 [[plugins]]
@@ -68,59 +74,158 @@ repo = 'bronson/vim-trailing-whitespace'
 [[plugins]]
 repo = 'szw/vim-tags'
 
-#gitの便利操作がvimで出来る Gblameなど
+# gitの便利操作がvimで出来る Gblameなど
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-#gitの変更箇所を左側に表示してくれる
+# gitの変更箇所を左側に表示してくれる
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
+hook_add = '''
+    " 変更箇所のハイライト
+    let g:gitgutter_highlight_lines = 0
+    " タイピング停止時から反映されるまでの時間(デフォルト4000msec)
+    set updatetime=250
+'''
 
-#tagbarがでる関数一覧などが出る
+# tagbarがでる関数一覧などが出る
 [[plugins]]
 repo = 'majutsushi/tagbar'
 
-#細かい整形が出来るようなる
+# 細かい整形が出来るようなる
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
+hook_add = '''
+    " enterで整形設定に行くようにする
+    vmap <Enter> <Plug>(EasyAlign)
+'''
 
-#ctrl+p でファイルあいまい検索ができる
+# ctrl+p でファイルあいまい検索ができる
 [[plugins]]
 repo = 'ctrlpvim/ctrlp.vim'
 
-#入力補完
+# 入力補完
 #[[plugins]]
 #repo = 'Shougo/neocomplcache'
+hook_add = '''
+    " Disable AutoComplPop. neocomplcashe
+    let g:acp_enableAtStartup = 0
+    " Use neocomplcache.
+    let g:neocomplcache_enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplcache_enable_smart_case = 1
+    " Set minimum syntax keyword length.
+    let g:neocomplcache_min_syntax_length = 3
+    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+    " Define dictionary.
+    let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default' : ''
+        \ }
+
+    " Plugin key-mappings.
+    inoremap <expr><C-g>     neocomplcache#undo_completion()
+    inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+    " Recommended key-mappings.
+    "" <CR>: close popup and save indent.
+    " inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    " function! s:my_cr_function()
+    "return neocomplcache#smart_close_popup() . "\<CR>"
+    "endfunction
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplcache#close_popup()
+    inoremap <expr><C-e>  neocomplcache#cancel_popup()
+'''
 
 # スニペットの補完機能
 [[plugins]]
 repo = 'Shougo/neosnippet'
+hook_add = '''
+    " Plugin key-mappings.
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+    " SuperTab like snippets behavior.
+    " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    "imap <expr><TAB>
+    " \ pumvisible() ? "\<C-n>" :
+    " \ neosnippet#expandable_or_jumpable() ?
+    " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+    " For conceal markers.
+    if has('conceal')
+        set conceallevel=2 concealcursor=niv
+    endif
+
+    " ~ファイルタイプ毎 & gitリポジトリ毎にtagsの読み込みpathを変える~
+    function! ReadTags(type)
+        try
+            execute "set tags=".$HOME."/dotfiles/tags_files/".
+                \ system("cd " . expand('%:p:h') . "; basename `git rev-parse --show-toplevel` | tr -d '\n'").
+                \ "/" . a:type . "_tags"
+        catch
+            execute "set tags=./tags/" . a:type . "_tags;"
+        endtry
+    endfunction
+
+    augroup TagsAutoCmd
+    autocmd!
+    autocmd BufEnter * :call ReadTags(&filetype)
+    augroup END
+'''
 
 # スニペットé
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
-#閉じ括弧補完
+# 閉じ括弧補完
 #[[plugins]]
 #repo = 'cohama/lexima.vim'
 
-#検索結果の件数を表示
+# 検索結果の件数を表示
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
+hook_add = '''
+    " mapping
+    nmap n <Plug>(anzu-n-with-echo)
+    nmap N <Plug>(anzu-N-with-echo)
+    nmap * <Plug>(anzu-star-with-echo)
+    nmap # <Plug>(anzu-sharp-with-echo)
+    " clear status
+    nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+    " statusline
+    set statusline=%{anzu#search_status()}
+'''
 
-#fで検索後移動できるようにする
+# fで検索後移動できるようにする
 [[plugins]]
 repo = 'rhysd/clever-f.vim'
 
 [[plugins]]
 repo = 'kana/vim-operator-user'
 
-#コピーしたところが一瞬ハイライトされる 入らなかった
+# コピーしたところが一瞬ハイライトされる 入らなかった
 [[plugins]]
 repo = 'haya14busa/vim-operator-flashy'
+hook_add = '''
+    map y <Plug>(operator-flashy)
+    nmap Y <Plug>(operator-flashy)$
+'''
 
-#html補完
+# html補完
 [[plugins]]
 repo = 'mattn/emmet-vim'
-
+hook_add = '''
+    let g:user_emmet_leader_key='<C-t>'
+'''
 

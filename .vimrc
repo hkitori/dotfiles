@@ -85,7 +85,7 @@ set noswapfile
 " ################################################################# "
 
 " dein.vimインストール時に指定したディレクトリをセット
-let s:dein_dir = expand('~/.vim/dein_cache')
+let s:dein_dir = expand('~/.cache/dein')
 
 " dein.vimの実体があるディレクトリをセット
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'

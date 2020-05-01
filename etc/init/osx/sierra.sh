@@ -1,8 +1,9 @@
 #!/bin/sh
 
 # setup vim
-mkdir -p ~/.vim/deain_cache/
-cd ~/.cache/dein
+DEIN_DIR="${HOME}/.vim/dein_cache/"
+mkdir -p ${DEIN_DIR}
+cd ${DEIN_DIR}
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-sh ./installer.sh ~/.vim/dein_cache/
-cd ../
+sh ./installer.sh ${DEIN_DIR}
+cd -

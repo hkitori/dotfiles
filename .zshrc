@@ -59,8 +59,8 @@ alias pull="echo git pull; git pull"
 alias push="echo git push; git push"
 
 # zplug
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
+[ -f /usr/share/zplug/init.zsh ] && source /usr/share/zplug/init.zsh      # for raspi
+[ -f /usr/local/opt/zplug/init.zsh ] && source /usr/local/opt/zplug/init.zsh  # for osx
 
 # https://tshst.tumblr.com/post/151599091861/zshの環境を整える
 #-- zsh-syntax-highlighting

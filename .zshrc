@@ -93,3 +93,13 @@ function peco-select-history() {
 }
 zle -N peco-select-history
 bindkey '^R' peco-select-history
+
+# OS specific
+case ${OSTYPE} in
+    darwin*)
+        [[ -f ~/.zshrc.darwin ]] && source ~/.zshrc.darwin
+        ;;
+    linux*)
+        [[ -f ~/.zshrc.linux ]] && source ~/.zshrc.linux
+        ;;
+esac

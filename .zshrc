@@ -44,6 +44,7 @@ alias ls="ls -G"
 # alias for vi
 alias vv="echo vi ~/.vimrc; vi ~/.vimrc"
 alias vz="echo vi ~/.zshrc; vi ~/.zshrc"
+alias vze="echo vi ~/.zshenv; vi ~/.zshenv"
 alias vt="echo vi ~/.tmux.conf; vi ~/.tmux.conf"
 alias vg="echo vi ~/.gitconfig; vi ~/.gitconfig"
 alias vd="echo vi ~/.vim/dein.toml; vi ~/.vim/dein.toml"

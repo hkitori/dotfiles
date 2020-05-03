@@ -48,6 +48,9 @@ sudo apt -y install ibus-mozc
 sudo apt -y install peco
 sudo apt -y install tmux
 
+# change login shell bash to zsh
+sudo apt -y install zsh
+sudo chsh -s $(which zsh) pi
 
 sudo systemctl enable ssh
 #sudo systemctl start ssh

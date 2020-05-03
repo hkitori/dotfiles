@@ -30,10 +30,18 @@ sudo apt -y upgrade vim
 # google JP fonts
 sudo apt -y install fonts-noto
 # input method for JP
-#   You need also the following manual setting with GUI:
+# You need also the following manual setting with GUI:
+#   [Step1]
 #     Menu -> Preferences -> Ibus Preferences
-#     -> General -> Use custom font: Noto Sans CJK JP Regular
-#     font size: 10 or 12
+#     -> General -> Use custom font:
+#        Noto Sans CJK JP Regular
+#        font size: 10 or 12
+#   [Step2]
+#     Menu -> Preferences -> Ibus Preferences
+#     -> General -> Next input methods: ctrl+space
+#   [Step3]
+#     Menu -> Preferences -> Ibus Preferences
+#     -> Input Method -> Add -> Japanese -> Mozc
 sudo apt -y install ibus-mozc
 
 

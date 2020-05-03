@@ -11,8 +11,10 @@ sudo raspi-config nonint do_change_locale en_US.UTF-8
 # hdmi_group = 1 : CEA
 # hdmi_mode = 4  : 1280x720 @ 60Hz, progressive
 sudo raspi-config nonint do_resolution 1 4
-# add disable_overscan
-sudo raspi-config nonint do_overscan 1
+# add gpu_mem=512
+sudo raspi-config nonint do_memory_split 512
+# comment out disable_overscan
+sudo raspi-config nonint do_overscan 0
 # turn off blanking
 sudo raspi-config nonint do_blanking 0
 

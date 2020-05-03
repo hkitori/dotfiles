@@ -51,6 +51,7 @@ sudo apt -y install tmux
 # change login shell bash to zsh
 sudo apt -y install zsh
 sudo chsh -s $(which zsh) pi
+git clone https://github.com/zplug/zplug ~/.zplug
 
 sudo systemctl enable ssh
 #sudo systemctl start ssh

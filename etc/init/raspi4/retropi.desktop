@@ -2,8 +2,8 @@
 Name=Retropie
 Version=1.0
 Comment=Retropie
-Exec=/home/pi/bin/retropie.sh
-Icon=/home/pi/bin/icons/retropie.png
+Exec=/home/pi/etc/init/raspi4/retropie.sh
+Icon=/home/pi/etc/init/raspi4/icons/retropie.png
 Terminal=true
 Type=Application
 Categories=Game

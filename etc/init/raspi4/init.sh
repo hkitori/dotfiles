@@ -26,6 +26,11 @@ sudo apt -y install fonts-noto
 # input method for JP
 sudo apt -y install ibus-mozc
 
+
+sudo apt -y install peco
+sudo apt -y install tmux
+
+
 sudo systemctl enable ssh
 #sudo systemctl start ssh
 reboot

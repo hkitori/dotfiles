@@ -1,7 +1,13 @@
 
-
 # PATH
 export PATH="$PATH:~/bin/"
+typeset -gx -U path
+path=( \
+    ~/specific/bin(N-/) \
+    ~/bin(N-/) \
+    "$path[@]" \
+    )
+
 
 # LANGUAGE must be set by en_US
 export LANGUAGE="en_US.UTF-8"

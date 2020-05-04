@@ -1,0 +1,36 @@
+
+# alias
+alias rm="rm -i"
+alias mv="mv -i"
+alias cp="cp -i"
+alias grep="grep --color"
+alias ls="ls -G"
+# alias for vi
+alias vv="echo vi ~/.vimrc; vi ~/.vimrc"
+alias vz="echo vi ~/.zshrc; vi ~/.zshrc"
+alias vze="echo vi ~/.zshenv; vi ~/.zshenv"
+alias vt="echo vi ~/.tmux.conf; vi ~/.tmux.conf"
+alias vg="echo vi ~/.gitconfig; vi ~/.gitconfig"
+alias vd="echo vi ~/.vim/dein.toml; vi ~/.vim/dein.toml"
+alias vdl="echo vi ~/.vim/dein_lazy.toml; vi ~/.vim/dein_lazy.toml"
+# alias for source command
+alias rz="echo source ~/.zshrc; source ~/.zshrc"
+alias rt="echo tmux source-file ~/.tmux.conf; tmux source-file ~/.tmux.conf"
+# alias for git
+alias st="echo git status; git status"
+alias gr="echo git graph; git graph"
+alias cm="echo git commit -m ...; git commit -m $*"
+alias pull="echo git pull; git pull"
+alias push="echo git push; git push"
+
+# OS specific
+case ${OSTYPE} in
+    darwin*)
+        #[[ -f ~/.zshrc.darwin ]] && source ~/.zshrc.darwin
+         alias diff="colordiff"
+        ;;
+    linux*)
+        #[[ -f ~/.zshrc.linux ]] && source ~/.zshrc.linux
+         alias diff="diff --color"
+        ;;
+esac

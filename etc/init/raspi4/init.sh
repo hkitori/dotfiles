@@ -15,7 +15,7 @@ sudo raspi-config nonint do_resolution 1 16
 # 97 is Raspberry Pi 4 Only. To use this,
 # hdmi_enable_4kp60=1 must be set in /boot/config.txt.
 
-# add gpu_mem=512
+# add gpu_mem=512 [MB]
 sudo raspi-config nonint do_memory_split 512
 # comment out disable_overscan
 sudo raspi-config nonint do_overscan 0
@@ -44,9 +44,11 @@ sudo apt -y install fonts-noto
 #     -> Input Method -> Add -> Japanese -> Mozc
 sudo apt -y install ibus-mozc
 
-
+# packages
 sudo apt -y install peco
 sudo apt -y install tmux
+sudo apt -y install tig
+sudo apt -y install expect
 
 # change login shell bash to zsh
 sudo apt -y install zsh

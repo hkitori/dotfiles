@@ -229,3 +229,7 @@ hook_add = '''
     let g:user_emmet_leader_key='<C-t>'
 '''
 
+# open your files at the last edit position
+[[plugins]]
+repo = 'farmergreg/vim-lastplace'
+

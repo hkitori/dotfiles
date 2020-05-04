@@ -2,7 +2,7 @@
 Name=Retropie
 Version=1.0
 Comment=Retropie
-Exec=/home/pi/dotfiles/etc/init/raspi4/retropie/retropie.sh
+Exec=/home/pi/specific/bin/retropie.sh
 Icon=/home/pi/RetroPie/retropiemenu/icons/rpsetup.png
 Terminal=true
 Type=Application

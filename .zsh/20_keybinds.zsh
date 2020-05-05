@@ -15,8 +15,10 @@ bindkey '^R' peco-select-history
 # start/stop tmux toggle (ctrl + ])
 _start_tmux_if_stopped() {
     if ! is_tmux_runnning; then
-        #BUFFER="${${${(M)${+commands[tmuxx]}#1}:+tmuxx}:-tmux}"
         BUFFER="tmux attach"
+
+        # カーソルの位置情報、「0」は行頭､「$」は行末｡
+        # つまり、「カーソルの位置は､BUFFERの行末に」というもの｡
         CURSOR=$#BUFFER
         zle accept-line
     else

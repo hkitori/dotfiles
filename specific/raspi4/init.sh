@@ -51,7 +51,7 @@ sudo apt -y install tig
 sudo apt -y install expect
 
 # Install xscreensaver to disable screen saver
-#sudo apt -y install xscreensaver # by gui
+sudo apt -y install xscreensaver # by gui
 # Or execute no_blank.sh to manually disable it
 
 # change login shell bash to zsh

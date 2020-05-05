@@ -1,9 +1,4 @@
 
-export PATH="$PATH:~/bin/"
-
-# 補完機能
-autoload -U compinit
-compinit
 
 # プロンプト
 if [ $UID -eq 0 ]; then
@@ -51,11 +46,6 @@ zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
 #-- zsh-git-prompt
 zplug "olivierverdier/zsh-git-prompt"
-
-# ls --colorのためにlinux環境のlsを入れる
-# brew install coreutils
-#export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-#export LS_COLORS=gxBxhxDxfxhxhxhxhxcxcx
 
 # load .zsh/
 source ~/.zsh/[0-9]*.zsh

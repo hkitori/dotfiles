@@ -11,3 +11,18 @@ function peco-select-history() {
 }
 zle -N peco-select-history
 bindkey '^R' peco-select-history
+
+# start/stop tmux toggle (ctrl + ])
+_start_tmux_if_stopped() {
+    if ! is_tmux_runnning; then
+        #BUFFER="${${${(M)${+commands[tmuxx]}#1}:+tmuxx}:-tmux}"
+        BUFFER="tmux attach"
+        CURSOR=$#BUFFER
+        zle accept-line
+    else
+        tmux detach
+    fi
+}
+zle -N _start_tmux_if_stopped
+bindkey '^]' _start_tmux_if_stopped
+

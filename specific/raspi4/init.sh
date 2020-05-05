@@ -27,8 +27,12 @@ sudo apt update
 sudo apt -y upgrade
 sudo apt -y upgrade vim
 
+# Install font for programming
+sudo apt -y install fonts-ricty-diminished
+
 # google JP fonts
 sudo apt -y install fonts-noto
+
 # input method for JP
 # You need also the following manual setting with GUI:
 #   [Step1]

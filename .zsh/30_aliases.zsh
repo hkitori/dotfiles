@@ -4,11 +4,11 @@ alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 alias grep="grep --color"
-alias ls="ls -G"
 # alias for vi
 alias vv="echo vi ~/.vimrc; vi ~/.vimrc"
 alias vz="echo vi ~/.zshrc; vi ~/.zshrc"
 alias vze="echo vi ~/.zshenv; vi ~/.zshenv"
+alias vza="echo vi ~/.zsh/30_aliases.zsh; vi ~/.zsh/30_aliases.zsh"
 alias vt="echo vi ~/.tmux.conf; vi ~/.tmux.conf"
 alias vg="echo vi ~/.gitconfig; vi ~/.gitconfig"
 alias vd="echo vi ~/.vim/dein.toml; vi ~/.vim/dein.toml"
@@ -27,10 +27,12 @@ alias push="echo git push; git push"
 case ${OSTYPE} in
     darwin*)
         #[[ -f ~/.zshrc.darwin ]] && source ~/.zshrc.darwin
-         alias diff="colordiff"
+        alias ls="ls -G"
+        alias diff="colordiff"
         ;;
     linux*)
         #[[ -f ~/.zshrc.linux ]] && source ~/.zshrc.linux
-         alias diff="diff --color"
+        alias ls="ls --color"
+        alias diff="diff --color"
         ;;
 esac

@@ -46,13 +46,28 @@ sudo apt -y install fonts-noto
 #   [Step3]
 #     Menu -> Preferences -> Ibus Preferences
 #     -> Input Method -> Add -> Japanese -> Mozc
-sudo apt -y install ibus-mozc
+#sudo apt -y install ibus-mozc
+
+# https://www.fabshop.jp/raspberrypi-fcitx-mozc/
+# https://qiita.com/Higemal/items/6cde9d6b40cbe9f0e97f
+# You need also the following manual setting with GUI:
+#   [Step1]
+#     Menu -> Preferences -> Fcitx Configuration
+#     -> Input Method -> + buttun ~> Mozc
+#   [Step2]
+#     Menu -> Preferences -> Fcitx Configuration
+#     -> Global Config -> Triger Input Method -> Zenkakuhankaku
+#   [Step3]
+#     Reboot
+sudo apt -y install fcitx-mozc
+#im-config -n fcitx
 
 # packages
 sudo apt -y install peco
 sudo apt -y install tmux
 sudo apt -y install tig
 sudo apt -y install expect
+sudo apt -y install cec-utils # for cec-client
 
 # Install xscreensaver to disable screen saver
 sudo apt -y install xscreensaver # by gui

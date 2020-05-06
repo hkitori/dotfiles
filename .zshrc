@@ -51,6 +51,9 @@ zplug "olivierverdier/zsh-git-prompt"
 if [[ -f ~/.p10k.zsh ]]; then
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
     source ~/.p10k.zsh
+elif [[ -f ~/specific/.p10k.zsh ]]; then
+    # use pre-configured .p10k.zsh
+    source ~/specific/.p10k.zsh
 else
     # Intall MesloLGS NF Regular.ttf font for p10k
     if [[ ! -d ~/.p10k/powerlevel10k-media ]]; then
@@ -62,8 +65,9 @@ else
     if [[ ! -d ~/.p10k/powerlevel10k ]]; then
         git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.p10k/powerlevel10k
     fi
-    source ~/.p10k/powerlevel10k/powerlevel10k.zsh-theme
 fi
+# enable p10k
+source ~/.p10k/powerlevel10k/powerlevel10k.zsh-theme
 
 # load .zsh/
 source ~/.zsh/[0-9]*.zsh

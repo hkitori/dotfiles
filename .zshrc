@@ -48,6 +48,7 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "olivierverdier/zsh-git-prompt"
 
 # Install p10k
+# https://github.com/romkatv/powerlevel10k
 if [[ -f ~/.p10k.zsh ]]; then
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
     source ~/.p10k.zsh

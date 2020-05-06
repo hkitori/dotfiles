@@ -23,6 +23,7 @@ alias st="echo git status; git status"
 alias gr="echo git graph; git graph"
 alias cm="echo git commit -m ...; git commit -m $*"
 alias pull="echo git pull; git pull"
+alias gpr="echo git pull --rebase; git pull --rebase"
 alias push="echo git push; git push"
 
 # OS specific

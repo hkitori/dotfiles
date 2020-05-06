@@ -47,17 +47,27 @@ zplug "zsh-users/zsh-autosuggestions"
 #-- zsh-git-prompt
 zplug "olivierverdier/zsh-git-prompt"
 
+# Install p10k
+if [[ -f ~/.p10k.zsh ]]; then
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    source ~/.p10k.zsh
+else
+    # Intall MesloLGS NF Regular.ttf font for p10k
+    if [[ ! -d ~/.p10k/powerlevel10k-media ]]; then
+        git clone https://github.com/romkatv/powerlevel10k-media ~/.p10k/powerlevel10k-media
+        sudo cp ~/.p10k/powerlevel10k-media/MesloLGS\ NF\ Regular.ttf /usr/share/fonts/truetype/
+    fi
+
+    # Install p10k
+    if [[ ! -d ~/.p10k/powerlevel10k ]]; then
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.p10k/powerlevel10k
+    fi
+    source ~/.p10k/powerlevel10k/powerlevel10k.zsh-theme
+fi
+
 # load .zsh/
 source ~/.zsh/[0-9]*.zsh
 for zsh in ~/.zsh/[0-9]*.zsh; do
     source "$zsh"
 done
 
-if [[ ! -d ~/.p10k/powerlevel10k ]]; then
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.p10k/powerlevel10k
-fi
-source ~/.p10k/powerlevel10k/powerlevel10k.zsh-theme
-# type "p10k conifugre" to start wizard
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

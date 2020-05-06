@@ -35,17 +35,11 @@ sudo apt -y upgrade vim
 #./install.sh SourceCodePro
 #cd -
 
-# Intall  font for p10k
-if [[ ! -d ~/.p10k/powerlevel10k-media ]]; then
-    git clone https://github.com/romkatv/powerlevel10k-media ~/.p10k/powerlevel10k-media
-fi
-sudo cp ~/.p10k/powerlevel10k-media/MesloLGS\ NF\ Regular.ttf /usr/share/fonts/truetype/
-
 # Install Ricty diminished font for programming
-sudo apt -y install fonts-ricty-diminished
+#sudo apt -y install fonts-ricty-diminished
 
 # google JP fonts
-sudo apt -y install fonts-noto
+#sudo apt -y install fonts-noto
 
 # input method for JP
 # You need also the following manual setting with GUI:
@@ -81,6 +75,8 @@ sudo apt -y install peco
 sudo apt -y install tmux
 sudo apt -y install tig
 sudo apt -y install expect
+
+# hdmi
 sudo apt -y install cec-utils # for cec-client
 
 # Install xscreensaver to disable screen saver

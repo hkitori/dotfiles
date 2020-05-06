@@ -27,7 +27,21 @@ sudo apt update
 sudo apt -y upgrade
 sudo apt -y upgrade vim
 
-# Install font for programming
+# Intall Nerd font for p10k
+#if [[ ! -d ~/.nerd-fonts ]]; then
+#    git clone --branch=master --depth 1 https://github.com/ryanoasis/nerd-fonts.git ~/.nerd-fonts
+#fi
+#cd ~/.nerd-fonts
+#./install.sh SourceCodePro
+#cd -
+
+# Intall  font for p10k
+if [[ ! -d ~/.p10k/powerlevel10k-media ]]; then
+    git clone https://github.com/romkatv/powerlevel10k-media ~/.p10k/powerlevel10k-media
+fi
+sudo cp ~/.p10k/powerlevel10k-media/MesloLGS\ NF\ Regular.ttf /usr/share/fonts/truetype/
+
+# Install Ricty diminished font for programming
 sudo apt -y install fonts-ricty-diminished
 
 # google JP fonts
@@ -76,7 +90,9 @@ sudo apt -y install xscreensaver # by gui
 # change login shell bash to zsh
 sudo apt -y install zsh
 sudo chsh -s $(which zsh) pi
-git clone https://github.com/zplug/zplug ~/.zplug
+if [[ ! -d ~/.zplug ]]; then
+    git clone https://github.com/zplug/zplug ~/.zplug
+fi
 
 sudo systemctl enable ssh
 #sudo systemctl start ssh

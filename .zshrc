@@ -32,7 +32,7 @@ bindkey "^N" history-beginning-search-forward-end
 
 # https://sanoto-nittc.hatenablog.com/entry/2017/12/16/213735
 # zplug
-if [[ ! -d ~/.zplug ]];then
+if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
 fi
 source ~/.zplug/init.zsh
@@ -53,3 +53,11 @@ for zsh in ~/.zsh/[0-9]*.zsh; do
     source "$zsh"
 done
 
+if [[ ! -d ~/.p10k/powerlevel10k ]]; then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.p10k/powerlevel10k
+fi
+source ~/.p10k/powerlevel10k/powerlevel10k.zsh-theme
+# type "p10k conifugre" to start wizard
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -25,7 +25,11 @@ sudo raspi-config nonint do_blanking 1
 
 sudo apt update
 sudo apt -y upgrade
-sudo apt -y upgrade vim
+
+# Upgrade vim
+#sudo apt -y upgrade vim
+# Install vim with GUI version for +clipboard
+sudo apt -y install vim-gtk
 
 # Intall Nerd font for p10k
 #if [[ ! -d ~/.nerd-fonts ]]; then

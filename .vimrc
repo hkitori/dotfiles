@@ -81,7 +81,7 @@ set history=5000
 set noswapfile
 
 " マウスホイールによるスクロールを有効にする
-set mouse=r
+set mouse=a
 
 " ################################################################# "
 "  dein plugin manager

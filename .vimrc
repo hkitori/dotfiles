@@ -22,7 +22,7 @@ set ambiwidth=double
 set number
 " insertモードでもバックスペースが効くようにする
 set backspace=indent,eol,start
-"クリップボードにコピーする
+"クリップボードにコピーする ("+y)
 set clipboard=unnamed,autoselect
 
 " タブ入力を複数の空白入力に置き換える
@@ -79,6 +79,9 @@ set history=5000
 
 " .swpファイルを作らない
 set noswapfile
+
+" マウスホイールによるスクロールを有効にする
+set mouse=r
 
 " ################################################################# "
 "  dein plugin manager

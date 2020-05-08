@@ -79,8 +79,11 @@ sudo apt -y install peco
 sudo apt -y install tmux
 sudo apt -y install tig
 sudo apt -y install expect
-sudo apt -y install global
 sudo apt -y install nkf
+
+# code reading
+sudo apt -y install global # for gtags
+sudo apt -y install exuberant-ctags
 
 # hdmi
 sudo apt -y install cec-utils # for cec-client

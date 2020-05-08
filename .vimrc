@@ -47,6 +47,9 @@ set smartcase
 " 検索結果をハイライト"
 set hlsearch
 
+" ノーマルモードでESC ESCでハイライトを消す
+nnoremap <ESC><ESC> :nohl<CR>
+
 " 不可視文字を可視化(タブが「▸-」と表示される)
 set list listchars=tab:\▸\-
 
@@ -64,8 +67,26 @@ nnoremap <up> gk
 
 " tagsジャンプの時に複数ある時は一覧表示
 "nnoremap <C-]> g<C-]>
-nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
-nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+"nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+"nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+
+" GNU global (gtags)
+" Gtagsのインデックスファイル内をgrep
+map <C-g> :Gtags -g <C-r><C-w><CR>
+" そのCファイルの関数一覧
+map <C-l> :Gtags -f %<CR>
+" 関数名の一部からの関数一覧
+map <C-c> :Gtags -c %<CR>
+" カーソル以下の定義を探す
+map <C-j> :Gtags <C-r><C-w><CR>
+" カーソル以下のコール元を探す
+map <C-k> :Gtags -r <C-r><C-w><CR>
+" 次の検索結果
+map <C-n> :cn<CR>
+" 前の検索結果
+map <C-p> :cp<CR>
+" フォーカスがあたっていないウィンドウを閉じる
+map <C-x> <ESC><C-w><C-w><C-w>q
 
 " 括弧の対応関係を一瞬表示する
 set showmatch

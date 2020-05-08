@@ -74,9 +74,42 @@ repo = 'bronson/vim-trailing-whitespace'
 [[plugins]]
 repo = 'szw/vim-tags'
 
+# カーソルの下の文字列に対して、定義・参照をそれぞれquickfix表示
+[[plugins]]
+repo = 'lighttiger2505/gtags.vim'
+hook_add = '''
+    " Options
+    let g:Gtags_Auto_Map = 0
+    let g:Gtags_OpenQuickfixWindow = 1
+    " Keymap
+    " Show definetion of function cursor word on quickfix
+    "nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
+    " Show reference of cursor word on quickfix
+    "nmap <silent> R :<C-u>exe("Gtags -r".expand('<cword>'))<CR>
+'''
+
 # gitの便利操作がvimで出来る Gblameなど
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+hook_add = '''
+    " fugitive prefix -> <space + g>
+    " <space + g> <space + s>で、git status発動
+    " <space + g> <space + b>で、git blame発動
+    nnoremap [fugitive] <Nop>
+    nmap <space>g [fugitive]
+    nnoremap <silent> [fugitive]s :Gstatus<CR><C-w>T
+    "nnoremap <silent> [fugitive]a :Gwrite<CR>
+    "nnoremap <silent> [fugitive]c :Gcommit-v<CR>
+    nnoremap <silent> [fugitive]b :Gblame<CR>
+    nnoremap <silent> [fugitive]d :Gdiff<CR>
+    nnoremap <silent> [fugitive]m :Gmerge<CR>
+
+    " <space + g> <space + g>で検索中のキーワードに対してgit grep発動
+    nnoremap <silent> [fugitive]g :Ggrep <C-r><C-w><CR>
+
+    " Ggrep時に自動でquickfix-windowが開くようにする
+    autocmd QuickFixCmdPost *grep* cwindow
+'''
 
 # gitの変更箇所を左側に表示してくれる
 [[plugins]]

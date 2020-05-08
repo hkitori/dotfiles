@@ -69,14 +69,16 @@ function vig()
     if is_in_git; then
         # git内なので使える
         # -n: 行番号表示
-        result+="$(git grep -n "$strings" 2> /dev/null | peco --query $1)"
+        # -i: 大文字小文字無視
+        result+="$(git grep -i -n "$strings" 2> /dev/null | peco --query $1)"
     else
         # git外なので使えない
         # -n: 行番号表示
         # -I: バイナリ除外
+        # -i: 大文字小文字無視
         # さらに、grepがテキストファイルをバイナリとみなし、
         # "Binary file ... matches"を吐き出すことがあるので除外
-        result+="$(grep -rn -I "$strings" 2> /dev/null | grep -v "Binary file " | peco --query $1)"
+        result+="$(grep -rni -I "$strings" 2> /dev/null | grep -v "Binary file " | peco --query $1)"
     fi
 
     file="$(echo $result | head -1 | cut -d: -f1)"

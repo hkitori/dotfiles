@@ -90,11 +90,11 @@ hook_add = '''
 '''
 
 # gtagsを非同期で自動更新してくれる
-#[[plugins]]
-#repo = 'jsfaint/gen_tags.vim'
-#hook_add = '''
-#    let g:gen_tags#gtags_auto_gen = 1
-#'''
+[[plugins]]
+repo = 'jsfaint/gen_tags.vim'
+hook_add = '''
+    let g:gen_tags#gtags_auto_gen = 1
+'''
 
 # gitの便利操作がvimで出来る Gblameなど
 [[plugins]]

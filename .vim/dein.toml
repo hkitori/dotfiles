@@ -74,6 +74,7 @@ repo = 'bronson/vim-trailing-whitespace'
 [[plugins]]
 repo = 'szw/vim-tags'
 
+# https://qiita.com/lighttiger2505/items/6b1cd3bc79cb9806a743
 # カーソルの下の文字列に対して、定義・参照をそれぞれquickfix表示
 [[plugins]]
 repo = 'lighttiger2505/gtags.vim'
@@ -87,6 +88,13 @@ hook_add = '''
     " Show reference of cursor word on quickfix
     "nmap <silent> R :<C-u>exe("Gtags -r".expand('<cword>'))<CR>
 '''
+
+# gtagsを非同期で自動更新してくれる
+#[[plugins]]
+#repo = 'jsfaint/gen_tags.vim'
+#hook_add = '''
+#    let g:gen_tags#gtags_auto_gen = 1
+#'''
 
 # gitの便利操作がvimで出来る Gblameなど
 [[plugins]]
@@ -132,10 +140,6 @@ hook_add = '''
     " enterで整形設定に行くようにする
     vmap <Enter> <Plug>(EasyAlign)
 '''
-
-# ctrl+p でファイルあいまい検索ができる
-[[plugins]]
-repo = 'ctrlpvim/ctrlp.vim'
 
 # 入力補完
 #[[plugins]]

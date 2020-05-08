@@ -4,6 +4,30 @@
 	name = ytkibk
 	email = ytkibk@users.noreply.github.com
 [alias]
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+    # nameあり
+	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Creset%an %Cblue%ce %Creset%s' --date=iso
+    # nameなし
+	#graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%ce %Creset%s' --date=iso
+[core]
+	editor = vim -c \"set fenc=utf-8\"
+	pager = less -cm
+	quotepath = false
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+[push]
+	default = simple
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[merge]
+	tool = vimdiff
+	# --no-ffと透過: git mergeしたときはマージコミットを残すようにする
+	ff = false
+[mergetool]
+	prompt = false
+[rebase]
+	autostash = true

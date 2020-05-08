@@ -18,13 +18,6 @@ alias vdl="echo vi ~/.vim/dein_lazy.toml; vi ~/.vim/dein_lazy.toml"
 # alias for source command
 alias rz="echo source ~/.zshrc; source ~/.zshrc"
 alias rt="echo tmux source-file ~/.tmux.conf; tmux source-file ~/.tmux.conf"
-# alias for git
-alias st="echo git status; git status"
-alias gr="echo git graph; git graph"
-alias cm="echo git commit -m ...; git commit -m $*"
-alias pull="echo git pull; git pull"
-alias gpr="echo git pull --rebase; git pull --rebase"
-alias push="echo git push; git push"
 
 # OS specific
 case ${OSTYPE} in

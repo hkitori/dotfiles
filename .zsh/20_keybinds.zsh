@@ -1,6 +1,9 @@
 
+# ctrl-a, ctrl-e
+bindkey -e
+
 # peco history selection (ctrl + r)
-function peco-select-history() {
+function _peco-select-history() {
     # historyを番号なし、逆順、最初から表示。
     # 順番を保持して重複を削除。
     # カーソルの左側の文字列をクエリにしてpecoを起動
@@ -9,8 +12,8 @@ function peco-select-history() {
     CURSOR=$#BUFFER             # カーソルを文末に移動
     zle -R -c                   # refresh
 }
-zle -N peco-select-history
-bindkey '^R' peco-select-history
+zle -N _peco-select-history
+bindkey '^R' _peco-select-history
 
 # start/stop tmux toggle (ctrl + ])
 _start_tmux_if_stopped() {

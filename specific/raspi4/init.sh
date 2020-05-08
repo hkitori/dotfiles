@@ -80,6 +80,7 @@ sudo apt -y install tmux
 sudo apt -y install tig
 sudo apt -y install expect
 sudo apt -y install global
+sudo apt -y install nkf
 
 # hdmi
 sudo apt -y install cec-utils # for cec-client

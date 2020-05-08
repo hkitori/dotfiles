@@ -23,7 +23,7 @@ set number
 " insertモードでもバックスペースが効くようにする
 set backspace=indent,eol,start
 "クリップボードにコピーする ("+y)
-set clipboard=unnamed,autoselect
+set clipboard^=unnamed,unnamedplus
 
 " タブ入力を複数の空白入力に置き換える
 set expandtab

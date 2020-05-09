@@ -66,3 +66,13 @@ _google_by_clipboard() {
 zle -N _google_by_clipboard
 bindkey '^G' _google_by_clipboard
 
+
+# 上のディレクトリに移動する (ctrl + ^)
+_cdup() {
+    echo
+    cd ..
+    zle accept-line
+}
+zle -N _cdup
+bindkey '^^' _cdup
+

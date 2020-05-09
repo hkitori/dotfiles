@@ -2,6 +2,13 @@
 # ctrl-a, ctrl-e
 bindkey -e
 
+# コマンド履歴検索 (ctrl + p / ctrl + n)
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
 # ヒストリをpecoで選択し実行する (ctrl + r)
 function _peco-select-history() {
     # historyを番号なし、逆順、最初から表示。

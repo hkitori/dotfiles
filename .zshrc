@@ -22,14 +22,6 @@ setopt share_history
 # 履歴をインクリメンタルに追加
 setopt inc_append_history
 
-# コマンド履歴検索
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
-
-
 # https://sanoto-nittc.hatenablog.com/entry/2017/12/16/213735
 # zplug
 if [[ ! -d ~/.zplug ]]; then

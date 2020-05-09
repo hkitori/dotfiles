@@ -56,3 +56,13 @@ _cd_top() {
 zle -N _cd_top
 bindkey '^T' _cd_top
 
+# クリップボードの文字列をググる (ctrl + g)
+_google_by_clipboard() {
+    # git grepが使えるかどうか調べる
+    google `xsel --clipboard --output`
+
+    zle accept-line
+}
+zle -N _google_by_clipboard
+bindkey '^G' _google_by_clipboard
+

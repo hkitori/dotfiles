@@ -30,6 +30,10 @@ alias gd="echo git diff; git diff"
 alias gdc="echo git diff --cached; git diff --cached"
 alias gdw="echo git diff --word-diff; git diff --word-diff" # diff per word
 
+alias pbcopy='xsel --clipboard --input'   # copy to clipboard
+alias pbpaste='xsel --clipboard --output' # paste to clipboard
+alias g='google' # google defined at .zsh/10_functions.zsh
+
 # OS specific
 case ${OSTYPE} in
     darwin*)

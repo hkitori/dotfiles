@@ -1,0 +1,8 @@
+#!/bin/sh -eu
+
+# rootでなければsuコマンド経由で自分をコールする
+[ `whoami` = root ] || exec sudo su -c $0 root
+
+# Clear PageCache, dentries and inodes.
+sync; echo 3 > /proc/sys/vm/drop_caches
+

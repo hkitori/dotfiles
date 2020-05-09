@@ -1,0 +1,25 @@
+#!/bin/sh -eux
+
+# rootでなければsuコマンド経由で自分をコールする
+[ `whoami` = root ] || exec sudo su -c $0 root
+
+# サイズチェック
+du -h /home/pi/.cache/chromium/Default/Cache/
+# chromeのキャッシュをクリアする
+rm -fr /home/pi/.cache/chromium/Default/Cache/*
+# サイズチェック
+du -h /home/pi/.cache/chromium/Default/Cache/
+
+# https://www.raspberrypi.org/forums/viewtopic.php?t=174034
+#
+# Reduce initial browsing slow-downs caused by waiting for cache
+# by deleting contents of cache before starting browser
+# (not contents of cache database):
+#
+# You can empty cache before exiting every browser session,
+# which will also clean the cache database (but who remembers
+# to do that everytime)
+
+# さらに全体のキャッシュもクリア
+/home/pi/specific/bin/drop-caches
+

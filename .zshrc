@@ -1,5 +1,4 @@
 
-
 # プロンプト
 if [ $UID -eq 0 ]; then
     # ルートユーザーの場合
@@ -10,6 +9,9 @@ else
     PROMPT="%f%F{green}%~%f %% "
     #PROMPT="%F{cyan}%n:%f%F{green}%~%f %% "
 fi
+
+# cdなしでディレクトリ名を直接指定して移動
+setopt auto_cd
 
 # コマンド履歴
 HISTFILE=~/.zsh_history

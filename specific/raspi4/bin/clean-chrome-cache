@@ -6,7 +6,7 @@
 # サイズチェック
 du -h /home/pi/.cache/chromium/Default/Cache/
 # chromeのキャッシュをクリアする
-rm -fr /home/pi/.cache/chromium/Default/Cache/*
+rm -fr /home/pi/.cache/chromium/Default/Cache/* > /dev/null
 # サイズチェック
 du -h /home/pi/.cache/chromium/Default/Cache/
 

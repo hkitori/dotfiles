@@ -1,15 +1,13 @@
 
 # gitリポジトリ内か調べる
-is_in_git()
-{
+is_in_git() {
     git rev-parse --is-inside-work-tree &> /dev/null
     return $status
 }
 
 
 # findした結果をpecoで選択してviで開く
-function vif()
-{
+function vif() {
     local file="" # フィルタ後のファイルパスが入る
 
     # オプションがなければ、異常終了
@@ -42,8 +40,7 @@ function vif()
 }
 
 # grepした結果をpecoで選択してviで開く
-function vig()
-{
+function vig() {
     local result="" # git grep/grep直後の結果が入る
     local file="" # フィルタ後のファイルパスが入る
     local line="" # ヒットした行番号が入る

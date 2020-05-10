@@ -22,13 +22,15 @@ alias rt="echo tmux source-file ~/.tmux.conf; tmux source-file ~/.tmux.conf"
 alias st="echo git status; git status"
 alias add="echo git add ...; git add"
 alias gr="echo git graph; git graph"
-alias cm="echo git commit -m ...; git commit -m $*"
+alias cm="echo git commit -m ...; git commit -m"
+alias cma="echo git commit --amend -m ...; git commit --amend -m"
 alias pull="echo git pull; git pull"
 alias gpr="echo git pull --rebase; git pull --rebase"
 alias push="echo git push; git push"
 alias gd="echo git diff; git diff"
 alias gdc="echo git diff --cached; git diff --cached"
 alias gdw="echo git diff --word-diff; git diff --word-diff" # diff per word
+alias git-undo="git reset --soft HEAD^" # 直前のコミットをやめる
 
 alias pbcopy='xsel --clipboard --input'   # copy to clipboard
 alias pbpaste='xsel --clipboard --output' # paste to clipboard

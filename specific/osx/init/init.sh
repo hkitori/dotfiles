@@ -8,3 +8,5 @@
 #sh ./installer.sh ${DEIN_DIR}
 #cd -
 
+
+brew install global # for gtags

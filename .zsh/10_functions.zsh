@@ -17,12 +17,15 @@ function vif() {
     fi
 
     # git ls-filesが使えるかどうか調べる
-    if is_in_git; then
-        # git内なので使える
-        file="$(git ls-files 2> /dev/null | peco --query $1)"
-    else
+    if ! is_in_git -o ; then
         # git外なので使えない
         file="$(find . -type f 2> /dev/null | peco --query $1)"
+    elif [[ $1 = "-f" ]]; then
+        # -fが指定された
+        file="$(find . -type f 2> /dev/null | peco --query $2)"
+    else
+        # git内なので使える
+        file="$(git ls-files 2> /dev/null | peco --query $1)"
     fi
 
     # head -1を入れたのはgrepの結果に\nが入っていると、
@@ -44,11 +47,18 @@ function vig() {
     local result="" # git grep/grep直後の結果が入る
     local file="" # フィルタ後のファイルパスが入る
     local line="" # ヒットした行番号が入る
+    local force_use_grep=0
 
     # オプションがなければ、異常終了
     if [[ $# -eq 0 ]]; then
         echo "Error: ${0} needs a parameter at least"
         return 1
+    fi
+
+    if [[ $1 = "-f" ]]; then
+        # -fが指定された
+        shift
+        local force_use_grep=1
     fi
 
     local strings="$*"
@@ -63,12 +73,7 @@ function vig() {
     fi
 
     # git grepが使えるかどうか調べる
-    if is_in_git; then
-        # git内なので使える
-        # -n: 行番号表示
-        # -i: 大文字小文字無視
-        result+="$(git grep -i -n "$strings" 2> /dev/null | peco --query $1)"
-    else
+    if ! is_in_git; then
         # git外なので使えない
         # -n: 行番号表示
         # -I: バイナリ除外
@@ -76,6 +81,14 @@ function vig() {
         # さらに、grepがテキストファイルをバイナリとみなし、
         # "Binary file ... matches"を吐き出すことがあるので除外
         result+="$(grep -rni -I "$strings" 2> /dev/null | grep -v "Binary file " | peco --query $1)"
+    elif [[ $force_use_grep -eq 1 ]]; then
+        # -fが指定された
+        result+="$(grep -rni -I "$strings" 2> /dev/null | grep -v "Binary file " | peco --query $1)"
+    else
+        # git内なので使える
+        # -n: 行番号表示
+        # -i: 大文字小文字無視
+        result+="$(git grep -i -n "$strings" 2> /dev/null | peco --query $1)"
     fi
 
     file="$(echo $result | head -1 | cut -d: -f1)"

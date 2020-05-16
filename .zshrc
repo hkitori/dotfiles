@@ -80,7 +80,6 @@ for zsh in ~/.zsh/[0-9]*.zsh; do
 done
 
 # PATH
-export PATH="$PATH:~/bin/"
 typeset -gx -U path
 path=( \
     ~/specific/bin(N-/) \

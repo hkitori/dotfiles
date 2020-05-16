@@ -154,3 +154,6 @@ endif
 syntax on
 colorscheme molokai
 
+" Background Transparency for Alacritty on mac osx using vim
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE

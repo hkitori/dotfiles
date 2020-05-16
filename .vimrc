@@ -23,7 +23,11 @@ set number
 " insertモードでもバックスペースが効くようにする
 set backspace=indent,eol,start
 "クリップボードにコピーする ("+y)
-set clipboard^=unnamedplus
+if system('uname -s') == "Darwin\n"
+  set clipboard=unnamed "OSX
+else
+  set clipboard=unnamedplus "Linux
+endif
 
 " タブ入力を複数の空白入力に置き換える
 set expandtab

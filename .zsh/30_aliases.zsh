@@ -7,7 +7,6 @@ alias grep="grep --color"
 # alias for vi
 alias vv="echo vi ~/.vimrc; vi ~/.vimrc"
 alias vz="echo vi ~/.zshrc; vi ~/.zshrc"
-alias vze="echo vi ~/.zshenv; vi ~/.zshenv"
 alias vzf="echo vi ~/.zsh/10_functions.zsh; vi ~/.zsh/10_functions.zsh"
 alias vzk="echo vi ~/.zsh/20_keybinds.zsh; vi ~/.zsh/20_keybinds.zsh"
 alias vza="echo vi ~/.zsh/30_aliases.zsh; vi ~/.zsh/30_aliases.zsh"

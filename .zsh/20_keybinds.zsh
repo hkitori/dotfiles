@@ -1,6 +1,9 @@
 
-# ctrl-a, ctrl-e
+# ctrl+a, ctrl+e
 bindkey -e
+
+# ctrl+u: backward-kill-line (default kill-whole-line)
+bindkey "^U" backward-kill-line
 
 # コマンド履歴検索 (ctrl + p / ctrl + n)
 autoload history-search-end

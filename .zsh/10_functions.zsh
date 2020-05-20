@@ -5,106 +5,100 @@ is_in_git() {
     return $status
 }
 
-
 # findした結果をpecoで選択してviで開く
 function vif() {
     local file="" # フィルタ後のファイルパスが入る
+    local force_find=0 # git ls-files:0, find:1
 
     # オプションがなければ、異常終了
     if [[ $# -eq 0 ]]; then
-        echo "Error: ${0} needs a parameter at least"
-        return 1
-    fi
-
-    # git ls-filesが使えるかどうか調べる
-    if ! is_in_git -o ; then
-        # git外なので使えない
-        file="$(find . -type f 2> /dev/null | peco --query $1)"
-    elif [[ $1 = "-f" ]]; then
-        # -fが指定された
-        file="$(find . -type f 2> /dev/null | peco --query $2)"
-    else
-        # git内なので使える
-        file="$(git ls-files 2> /dev/null | peco --query $1)"
-    fi
-
-    # head -1を入れたのはgrepの結果に\nが入っていると、
-    # pecoが改行してしまい、意図せず複数行になるためその防止
-    if [[ -n "$file" ]]; then
-        # $fileが空白でないならviで開く
-        # pecoの画面でESCなどを使って何も選択しないときを考慮
-
-        # silentで"Press ENTER or type command to continue"の表示防止
-        echo "vim -c silent $file"
-        # あとで履歴から引けるように、~/.zsh_historyに追加する
-        print -S "vim $file"
-        vim -c silent $file
-    fi
-}
-
-# grepした結果をpecoで選択してviで開く
-function vig() {
-    local result="" # git grep/grep直後の結果が入る
-    local file="" # フィルタ後のファイルパスが入る
-    local line="" # ヒットした行番号が入る
-    local force_use_grep=0
-
-    # オプションがなければ、異常終了
-    if [[ $# -eq 0 ]]; then
-        echo "Error: ${0} needs a parameter at least"
+        echo "Error: no param"
         return 1
     fi
 
     if [[ $1 = "-f" ]]; then
         # -fが指定された
         shift
-        local force_use_grep=1
+        local force_find=1
+    elif ! is_in_git; then
+        # git外なのでgit ls-filesは使えない
+        local force_find=1
     fi
 
-    local strings="$*"
-    # 半角全角の判定
-    local enc=`echo $strings | nkf -g`
-    if [[ $enc == "ASCII" ]]; then
-        # 半角: stringsがasciiのみで構成される
-        echo "Info: strings is ascii"
+    if [[ $force_find -eq 1 ]]; then
+        # find
+        #   --select-1 : 候補が1つしかなければ、そのまま決定
+        #                しかし、queryにより候補が1つになった場合は機能しない
+        file="$(find . -type f 2> /dev/null | peco --select-1 --query $1)"
     else
-        # 全角: stringsがascii以外が含まれる
-        echo "Info: strings is not ascii"
+        # git ls-files
+        file="$(git ls-files 2> /dev/null | peco --select-1 --query $1)"
     fi
 
-    # git grepが使えるかどうか調べる
-    if ! is_in_git; then
-        # git外なので使えない
-        # -n: 行番号表示
-        # -I: バイナリ除外
-        # -i: 大文字小文字無視
-        # さらに、grepがテキストファイルをバイナリとみなし、
-        # "Binary file ... matches"を吐き出すことがあるので除外
-        result+="$(grep -rni -I "$strings" 2> /dev/null | grep -v "Binary file " | peco --query $1)"
-    elif [[ $force_use_grep -eq 1 ]]; then
-        # -fが指定された
-        result+="$(grep -rni -I "$strings" 2> /dev/null | grep -v "Binary file " | peco --query $1)"
-    else
-        # git内なので使える
-        # -n: 行番号表示
-        # -i: 大文字小文字無視
-        result+="$(git grep -i -n "$strings" 2> /dev/null | peco --query $1)"
-    fi
-
-    file="$(echo $result | head -1 | cut -d: -f1)"
-    line="$(echo $result | head -1 | cut -d: -f2)"
-
-    # head -1を入れたのはgrepの結果に\nが入っていると、
-    # pecoが改行してしまい、意図せず複数行になるためその防止
     if [[ -n "$file" ]]; then
         # $fileが空白でないならviで開く
         # pecoの画面でESCなどを使って何も選択しないときを考慮
 
-        # silentで"Press ENTER or type command to continue"の表示防止
-        echo "vim -c silent -c /\"$1\" -c $file"
         # あとで履歴から引けるように、~/.zsh_historyに追加する
-        print -S "vim -c $file"
+        print -S "vim $file"
+        # silentで"Press ENTER or type command to continue"の表示防止
+        echo "vim -c silent $file"
+        vim -c silent $file
+    fi
+}
+
+# grepした結果をpecoで選択してviで開く
+function vig() {
+    local strings=""   # vifに渡される文字列
+    local result=""    # git grep/grep後の結果
+    local file=""      # pecoフィルタ後のファイルパス
+    local line=""      # 行番号
+    local force_grep=0 # git grep:0, grep:1
+
+    # オプションがなければ、異常終了
+    if [[ $# -eq 0 ]]; then
+        echo "Error: no param"
+        return 1
+    fi
+
+    if [[ $1 = "-f" ]]; then
+        # -fが指定された
+        shift
+        local force_grep=1
+    elif ! is_in_git; then
+        # git外なのでgit grepは使えない
+        local force_grep=1
+    fi
+    strings="$*"
+
+    if [[ $force_grep -eq 1 ]]; then
+        # grep
+        #   -n: 行番号表示
+        #   -I: バイナリ除外
+        #   -i: 大文字小文字無視
+        #   -a: テキストとみなす Binary file (standard input) matches回避
+        # peco
+        #   --select-1 : 候補が1つしかなければ、そのまま決定
+        result="$(grep -rnIia "$strings" ./.* 2> /dev/null | peco --select-1 --query $1)"
+    else
+        # git grep
+        result="$(git grep -i -n "$strings" 2> /dev/null | peco --select-1 --query $1)"
+    fi
+
+    # head -1を入れたのはgrepの結果に\nが入っていると、
+    # pecoが改行してしまい、意図せず複数行になるためその回避
+    file="$(echo $result | head -1 | cut -d: -f1)"
+    line="$(echo $result | head -1 | cut -d: -f2)"
+
+    if [[ -n "$file" ]]; then
+        # $fileが空白でないならviで開く
+        # pecoの画面でESCなどを使って何も選択しないときを考慮
+
+        # あとで履歴から引けるように、~/.zsh_historyに追加する
         print -S "vim -c /\"$1\" -c $line $file"
+        # silentで"Press ENTER or type command to continue"の表示抑止
+        # 抑止できていない？
+        echo "vim -c silent -c /\"$1\" -c $file"
         vim -c silent -c /"$1" -c $line $file
     fi
 }

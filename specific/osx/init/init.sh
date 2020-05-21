@@ -10,3 +10,13 @@
 
 
 brew install global # for gtags
+
+
+# install pip
+sudo easy_install pip
+# upgrade pip
+curl https://bootstrap.pypa.io/get-pip.py | python
+
+
+brew install ag
+

@@ -47,6 +47,38 @@ function vif() {
     fi
 }
 
+function viggf() {
+    local vim_args=""
+
+    if (type "ag" > /dev/null 2>&1;) then
+        vim $( \
+            ag $@ | \
+            peco --prompt "[ag]" --query "$@" | \
+            awk -F : '{print "-c " $2 " " $1}' \
+            )
+    else
+        vim $( \
+            grep -rn $@ * .* | \
+            peco --prompt "[grep]" --query "$@" |\
+            awk -F : '{print "-c " $2 " " $1}' \
+            )
+    fi
+}
+
+function vigg() {
+    local vim_args=""
+
+    if (is_in_git;) then
+        vim $( \
+            git grep -n $@ | \
+            peco --prompt "[git-grep]" --query "$@" | \
+            awk -F : '{print "-c " $2 " " $1}' \
+            )
+    else
+        viggf
+    fi
+}
+
 # grepした結果をpecoで選択してviで開く
 function vig() {
     local strings=""   # vifに渡される文字列
@@ -64,10 +96,10 @@ function vig() {
     if [[ $1 = "-f" ]]; then
         # -fが指定された
         shift
-        local force_grep=1
+        force_grep=1
     elif ! is_in_git; then
         # git外なのでgit grepは使えない
-        local force_grep=1
+        force_grep=1
     fi
     strings="$*"
 

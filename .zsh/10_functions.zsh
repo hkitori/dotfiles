@@ -81,11 +81,9 @@ function vigg() {
 
 # grepした結果をpecoで選択してviで開く
 function vig() {
-    local strings=""   # vifに渡される文字列
     local result=""    # git grep/grep後の結果
     local file=""      # pecoフィルタ後のファイルパス
     local line=""      # 行番号
-    local force_grep=0 # git grep:0, grep:1
 
     # オプションがなければ、異常終了
     if [[ $# -eq 0 ]]; then
@@ -93,29 +91,28 @@ function vig() {
         return 1
     fi
 
-    if [[ $1 = "-f" ]]; then
-        # -fが指定された
-        shift
-        force_grep=1
-    elif ! is_in_git; then
-        # git外なのでgit grepは使えない
-        force_grep=1
-    fi
-    strings="$*"
-
-    if [[ $force_grep -eq 1 ]]; then
+    if (type "ag" > /dev/null 2>&1;) then
+        # agがあればagを使う
+        grep_cmd="ag"
+    else
         # grep
         #   -n: 行番号表示
         #   -I: バイナリ除外
         #   -i: 大文字小文字無視
         #   -a: テキストとみなす Binary file (standard input) matches回避
-        # peco
-        #   --select-1 : 候補が1つしかなければ、そのまま決定
-        result="$(grep -rnIia "$strings" ./.* 2> /dev/null | peco --select-1 --query $1)"
-    else
-        # git grep
-        result="$(git grep -i -n "$strings" 2> /dev/null | peco --select-1 --query $1)"
+        grep_cmd="grep -rnIia"
     fi
+
+    if [[ $1 = "-f" ]]; then
+        # -fが指定されたらgit内でもgit grepは使わない
+        shift
+    elif is_in_git; then
+        # git内ならgit grepを使う
+        grep_cmd="git grep -nIia"
+    fi
+
+    # --select-1 : 候補が1つしかなければ、そのまま決定
+    result="$(eval $grep_cmd $1 ./.* 2> /dev/null | peco --select-1 --query $1)"
 
     # head -1を入れたのはgrepの結果に\nが入っていると、
     # pecoが改行してしまい、意図せず複数行になるためその回避

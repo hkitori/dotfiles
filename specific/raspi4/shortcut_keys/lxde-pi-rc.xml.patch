@@ -1,0 +1,71 @@
+--- /etc/xdg/openbox/lxde-pi-rc.xml.org	2020-05-31 11:47:52.722017592 +0900
++++ /etc/xdg/openbox/lxde-pi-rc.xml	2020-06-01 08:15:43.097326832 +0900
+@@ -169,6 +169,68 @@
+   </dock>
+   <keyboard>
+     <chainQuitKey>C-g</chainQuitKey>
++    <!-- My Custom Keyboard Shortcuts -->
++    <keybind key="C-F1">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F1</command>
++      </action>
++    </keybind>
++    <keybind key="C-F2">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F2</command>
++      </action>
++    </keybind>
++    <keybind key="C-F3">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F3</command>
++      </action>
++    </keybind>
++    <keybind key="C-F4">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F4</command>
++      </action>
++    </keybind>
++    <keybind key="C-F5">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F5</command>
++      </action>
++    </keybind>
++    <keybind key="C-F6">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F6</command>
++      </action>
++    </keybind>
++    <keybind key="C-F7">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F7</command>
++      </action>
++    </keybind>
++    <keybind key="C-F8">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F8</command>
++      </action>
++    </keybind>
++    <keybind key="C-F9">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F9</command>
++      </action>
++    </keybind>
++    <keybind key="C-F10">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F10</command>
++      </action>
++    </keybind>
++    <keybind key="C-F11">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F11</command>
++      </action>
++    </keybind>
++    <keybind key="C-F12">
++      <action name="Execute">
++	<command>/home/pi/specific/shortcut_keys/C-F12</command>
++      </action>
++    </keybind>
++    <!-- End My Custom Keyboard Shortcuts -->
+     <!-- Keybindings for desktop switching -->
+     <keybind key="C-A-Left">
+       <action name="UnmaximizeFull"/>

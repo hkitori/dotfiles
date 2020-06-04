@@ -1,0 +1,4 @@
+#!/bin/sh -eux
+
+/home/pi/specific/bin/turn-off-tv
+

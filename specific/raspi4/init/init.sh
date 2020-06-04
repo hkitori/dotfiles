@@ -81,6 +81,7 @@ sudo apt -y install tig
 sudo apt -y install expect
 sudo apt -y install nkf
 sudo apt -y install shellcheck
+sudo apt install snapd # for alacritty-unofficial, need reboot
 
 # code reading
 sudo apt -y install global # for gtags

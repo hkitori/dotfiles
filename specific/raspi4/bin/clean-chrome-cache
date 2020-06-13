@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+#!/bin/sh -eu
 
 # rootでなければsuコマンド経由で自分をコールする
 [ `whoami` = root ] || exec sudo su -c $0 root

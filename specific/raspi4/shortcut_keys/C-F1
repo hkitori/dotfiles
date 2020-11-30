@@ -1,4 +1,8 @@
 #!/bin/sh -eux
 
+#killall /usr/bin/vlc
+nohup /usr/bin/vlc --started-from-file >/dev/null
+
 /home/pi/specific/bin/turn-on-tv
+
 

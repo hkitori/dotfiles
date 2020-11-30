@@ -1,4 +1,8 @@
 #!/bin/sh -eux
 
+killall /usr/bin/vlc
+
 /home/pi/specific/bin/turn-off-tv
+
+ccc
 

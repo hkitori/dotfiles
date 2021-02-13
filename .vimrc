@@ -95,7 +95,9 @@ map <C-x> <ESC><C-w><C-w><C-w>q
 " 括弧の対応関係を一瞬表示する
 set showmatch
 " "shift + %"で<div class="aa"> ... </div>みたいなタグでも飛べるように拡張する
-source $VIMRUNTIME/macros/matchit.vim
+if filereadable("$VIMRUNTIME/macros/matchit.vim")
+    source $VIMRUNTIME/macros/matchit.vim
+endif
 
 " tabによるコマンドモードの補完
 set wildmenu
@@ -106,7 +108,9 @@ set history=5000
 set noswapfile
 
 " マウスホイールによるスクロールを有効にする
-set mouse=a
+if has('mouse')
+    set mouse=a
+endif
 
 " ################################################################# "
 "  dein plugin manager for Vim 8
@@ -150,6 +154,10 @@ if v:version >= 800
   if dein#check_install()
       call dein#install()
   endif
+
+  "色を付ける
+  syntax on
+  colorscheme molokai
 
 " ################################################################# "
 "  dein plugin manager for Vim 7.4
@@ -221,6 +229,9 @@ elseif v:version >= 704
         call dein#install()
     endif
 
+    "色を付ける
+    syntax on
+    colorscheme molokai
   endif
 endif
 
@@ -228,9 +239,6 @@ endif
 "  setting for plugins
 " ################################################################# "
 
-"色を付ける
-syntax on
-colorscheme molokai
 
 " Background Transparency for Alacritty on mac osx using vim
 hi! Normal ctermbg=NONE guibg=NONE

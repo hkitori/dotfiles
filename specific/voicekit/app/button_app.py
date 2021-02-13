@@ -27,9 +27,10 @@ def absoluteFilePaths(directory):
 
 def main():
     # init
-    pygame.mixer.init()
     cl=0
     song=0
+    play=True
+    pygame.mixer.init()
 
     tmp = absoluteFilePaths(dir_path)
     SONGS = sorted(tmp)
@@ -46,50 +47,42 @@ def main():
                 # press   #
                 ###########
                 board.button.wait_for_press()
-                print('pressed! play')
-
-                pygame.mixer.music.load("/home/pi/dotfiles/specific/voicekit/app/play1.mp3")
-                pygame.mixer.music.play(1)
-
-                #board.led.state = Led.ON
+                print('pressed')
                 leds.update(Leds.rgb_on(COLORS[cl]))
 
+                if play == True:
+                    # press sound at play
+                    pygame.mixer.music.load("/home/pi/dotfiles/specific/voicekit/app/play1.mp3")
+                    pygame.mixer.music.play(1)
+
+                else:
+                    # press sound at stop
+                    pygame.mixer.music.load("/home/pi/dotfiles/specific/voicekit/app/stop.mp3")
+                    pygame.mixer.music.play(1)
 
                 ###########
                 # release #
                 ###########
                 board.button.wait_for_release()
-                print('released!')
+                print('released')
 
-                leds.pattern = Pattern.breathe(800)
-                leds.update(Leds.rgb_pattern(COLORS[cl]))
+                if play == True:
+                    print('play music!')
 
-                pygame.mixer.music.load(SONGS[song])
-                pygame.mixer.music.play(1)
+                    pygame.mixer.music.load(SONGS[song])
+                    pygame.mixer.music.play(1)
+                    leds.pattern = Pattern.breathe(800)
+                    leds.update(Leds.rgb_pattern(COLORS[cl]))
 
+                    play = False
 
-                ###########
-                # press   #
-                ###########
-                board.button.wait_for_press()
-                print('pressed! stop')
+                else:
+                    print('stop music!')
 
-                #board.led.state = Led.ON
-                leds.update(Leds.rgb_on(COLORS[cl]))
+                    pygame.mixer.music.stop()
+                    leds.update(Leds.rgb_off())
 
-                pygame.mixer.music.load("/home/pi/dotfiles/specific/voicekit/app/stop.mp3")
-                pygame.mixer.music.play(1)
-
-
-                ###########
-                # release #
-                ###########
-                board.button.wait_for_release()
-                print('released!')
-
-                pygame.mixer.music.stop()
-                #board.led.state = Led.OFF
-                leds.update(Leds.rgb_off())
+                    play = True
 
                 # for next loop
                 if song < len(SONGS)-1 :

@@ -48,7 +48,7 @@ def main():
                 board.button.wait_for_press()
                 print('pressed! play')
 
-                pygame.mixer.music.load("/home/pi/dotfiles/specific/voicekit/app/play.mp3")
+                pygame.mixer.music.load("/home/pi/dotfiles/specific/voicekit/app/play1.mp3")
                 pygame.mixer.music.play(1)
 
                 #board.led.state = Led.ON

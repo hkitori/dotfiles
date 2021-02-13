@@ -39,34 +39,59 @@ def main():
     # main loop
     with Board() as board:
         with Leds() as leds:
-            leds.pattern = Pattern.breathe(800)
-            leds.update(Leds.rgb_pattern(COLORS[cl]))
-            #leds.update(Leds.rgb_pattern(Color.RED))
+            leds.update(Leds.rgb_on(COLORS[cl]))
     
             while True:
                 ###########
                 # press   #
                 ###########
                 board.button.wait_for_press()
-                print('pressed!')
-                board.led.state = Led.ON
+                print('pressed! play')
+
+                pygame.mixer.music.load("/home/pi/dotfiles/specific/voicekit/app/play.mp3")
+                pygame.mixer.music.play(1)
+
+                #board.led.state = Led.ON
                 leds.update(Leds.rgb_on(COLORS[cl]))
 
-                print(SONGS[song])
-
-                pygame.mixer.music.load(SONGS[song])
-                #pygame.mixer.music.load("/home/pi/dotfiles/specific/voicekit/app/sound.mp3")
-                pygame.mixer.music.play(1)
 
                 ###########
                 # release #
                 ###########
                 board.button.wait_for_release()
                 print('released!')
-                #board.led.state = Led.OFF
+
                 leds.pattern = Pattern.breathe(800)
                 leds.update(Leds.rgb_pattern(COLORS[cl]))
 
+                pygame.mixer.music.load(SONGS[song])
+                pygame.mixer.music.play(1)
+
+
+                ###########
+                # press   #
+                ###########
+                board.button.wait_for_press()
+                print('pressed! stop')
+
+                #board.led.state = Led.ON
+                leds.update(Leds.rgb_on(COLORS[cl]))
+
+                pygame.mixer.music.load("/home/pi/dotfiles/specific/voicekit/app/stop.mp3")
+                pygame.mixer.music.play(1)
+
+
+                ###########
+                # release #
+                ###########
+                board.button.wait_for_release()
+                print('released!')
+
+                pygame.mixer.music.stop()
+                #board.led.state = Led.OFF
+                leds.update(Leds.rgb_off())
+
+                # for next loop
                 if song < len(SONGS)-1 :
                     song+=1
                 else :

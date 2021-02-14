@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 import os
-#import time
+import time
 import pygame.mixer
 
 from aiy.board import Board, Led
 from aiy.leds import Leds, Color, Pattern
+
+from itertools import cycle
 
 COLORS = (
     #Color.BLACK,
@@ -28,12 +30,16 @@ def absoluteFilePaths(directory):
 def main():
     # init
     cl=0
-    song=0
     play=True
     pygame.mixer.init()
 
-    tmp = absoluteFilePaths(dir_path)
-    SONGS = sorted(tmp)
+    playlist = cycle(sorted(absoluteFilePaths(dir_path)))
+
+    #for songs in playlist:
+    #    print(songs)
+    #    time.sleep(1)
+    #
+    #print(next(playlist))
 
     # use 'sudo alsamixer' commnmd to change speaker volume
 
@@ -69,27 +75,28 @@ def main():
                 if play == True:
                     print('play music!')
 
-                    pygame.mixer.music.load(SONGS[song])
-                    pygame.mixer.music.play(1)
                     leds.pattern = Pattern.breathe(800)
                     leds.update(Leds.rgb_pattern(COLORS[cl]))
+
+                    pygame.mixer.music.load(next(playlist))
+
+                    for x in range(50):
+                        pygame.mixer.music.queue(next(playlist))
+
+                    pygame.mixer.music.play()
 
                     play = False
 
                 else:
                     print('stop music!')
 
-                    pygame.mixer.music.stop()
                     leds.update(Leds.rgb_off())
+
+                    pygame.mixer.music.stop()
 
                     play = True
 
                 # for next loop
-                if song < len(SONGS)-1 :
-                    song+=1
-                else :
-                    song=0
-
                 if cl < len(COLORS)-1 :
                     cl+=1
                 else :
@@ -99,3 +106,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

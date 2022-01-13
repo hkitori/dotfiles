@@ -56,13 +56,15 @@ else
         git clone https://github.com/romkatv/powerlevel10k-media ~/.p10k/powerlevel10k-media
         sudo cp ~/.p10k/powerlevel10k-media/MesloLGS\ NF\ Regular.ttf /usr/share/fonts/truetype/
         # for MAC
-        # Double-click on each file and click "Install". This will make MesloLGS NF font available to all applications on your system. Configure your terminal to use this font:
+        # Double-click on each file and click "Install". This will make MesloLGS NF font available
+        # to all applications on your system. Configure your terminal to use this font:
         #   MesloLGS NF Regular.ttf
         #   MesloLGS NF Bold.ttf
         #   MesloLGS NF Italic.ttf
         #   MesloLGS NF Bold Italic.ttf
         # Or cp them to ~/Library/Fonts ?
-        # iTerm2: Open iTerm2 → Preferences → Profiles → Text and set Font to MesloLGS NF. Alternatively, type p10k configure and answer Yes when asked whether to install Meslo Nerd Font.
+        # iTerm2: Open iTerm2 → Preferences → Profiles → Text and set Font to MesloLGS NF.
+        # Alternatively, type p10k configure and answer Yes when asked whether to install Meslo Nerd Font.
     fi
 
     # Install p10k

@@ -14,6 +14,7 @@ alias vt="echo vi ~/.tmux.conf; vi ~/.tmux.conf"
 alias vg="echo vi ~/.gitconfig; vi ~/.gitconfig"
 alias vd="echo vi ~/.vim/dein.toml; vi ~/.vim/dein.toml"
 alias vdl="echo vi ~/.vim/dein_lazy.toml; vi ~/.vim/dein_lazy.toml"
+alias vn="echo vi ~/.netrc; vi ~/.netrc"
 # alias for source command
 alias rz="echo source ~/.zshrc; source ~/.zshrc"
 alias rt="echo tmux source-file ~/.tmux.conf; tmux source-file ~/.tmux.conf"

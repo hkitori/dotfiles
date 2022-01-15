@@ -1,8 +1,8 @@
 [credential]
-	helper = osxkeychain
+	#helper = osxkeychain
 [user]
-	name = ykpp
-	email = ykpp@users.noreply.github.com
+	name = hkitori
+	email = hkitori@users.noreply.github.com
 [alias]
     # nameあり
 	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Creset%an %Cblue%ce %Creset%s' --date=iso

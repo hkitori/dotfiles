@@ -10,6 +10,9 @@ scriptencoding utf-8
 "   set encoding: vimの内部文字コード
 "   scriptencoding: vimスクリプト内で使用する文字コード
 
+" 常にステータスラインを表示する
+set laststatus=2
+
 " 保存時の文字コード
 set fileencoding=utf-8
 " 読み込み時の文字コードの自動判別、左側が優先される
@@ -114,6 +117,7 @@ set noswapfile
 if has('mouse')
     set mouse=a
 endif
+
 
 " ################################################################# "
 "  dein plugin manager for Vim 8

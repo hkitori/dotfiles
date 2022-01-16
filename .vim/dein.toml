@@ -20,7 +20,7 @@ elseif dein#util#_is_cygwin()
     let g:dein#plugin.build = cmd
 '''
 
-#ステータスラインのテーマ
+# ステータスラインのテーマ
 [[plugins]]
 repo    = 'vim-airline/vim-airline'
 depends = ['vim-airline-themes']
@@ -28,15 +28,15 @@ hook_add = '''
     let g:airline_theme = 'molokai'
 '''
 
-#ステータスラインのテーマ
+# ステータスラインのテーマ
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
 
-#コードの色
+# コードの色
 [[plugins]]
 repo = 'tomasr/molokai'
 
-#vimfilerを使うために必要
+# vimfilerを使うために必要
 [[plugins]]
 repo =  'Shougo/unite.vim'
 
@@ -230,15 +230,15 @@ repo = 'Shougo/neosnippet-snippets'
 
 # 検索結果の件数を表示
 [[plugins]]
-repo = 'osyo-manga/vim-anzu'
+"repo = 'osyo-manga/vim-anzu'
 hook_add = '''
     " mapping
-    nmap n <Plug>(anzu-n-with-echo)
-    nmap N <Plug>(anzu-N-with-echo)
-    nmap * <Plug>(anzu-star-with-echo)
-    nmap # <Plug>(anzu-sharp-with-echo)
+    noremap n <Plug>(anzu-n-with-echo)
+    noremap N <Plug>(anzu-N-with-echo)
+    noremap * <Plug>(anzu-star-with-echo)
+    noremap # <Plug>(anzu-sharp-with-echo)
     " clear status
-    "nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+    "noremap <Esc><Esc> <Plug>(anzu-clear-search-status)
     " statusline
     set statusline=%{anzu#search_status()}
 '''

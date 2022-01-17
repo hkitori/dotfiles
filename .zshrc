@@ -114,3 +114,7 @@ autoload -U compinit && compinit -u
 
 # gtagsでパース時、pygmentsを使うようにする
 export GTAGSLABEL=pygments
+
+# anyenv起動(pyenv, rbenv...)
+eval "$(anyenv init -)"
+

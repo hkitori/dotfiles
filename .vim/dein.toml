@@ -48,19 +48,73 @@ repo = 'Shougo/vimfiler'
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 
-# syntax check
-[[plugins]]
-repo = 'vim-syntastic/syntastic'
-hook_add = '''
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
+################
+# syntax check #
+################
 
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
+#[[plugins]]
+#repo = 'vim-syntastic/syntastic'
+#hook_add = '''
+#    set statusline+=%#warningmsg#
+#    set statusline+=%{SyntasticStatuslineFlag()}
+#    set statusline+=%*
+#
+#    let g:syntastic_always_populate_loc_list = 1
+#    let g:syntastic_auto_loc_list = 1
+#    let g:syntastic_check_on_open = 1
+#    let g:syntastic_check_on_wq = 0
+#'''
+# syntasticはairlineと競合してステータスラインがバグる？
+# っぽいので、
+# https://qiita.com/tashua314/items/5fc82f014e537ded50ff
+# を参考に、最近人気っぽいaleに乗り換えてみる
+[[plugins]] # lint tool
+repo = 'dense-analysis/ale'
+hook_add = '''
+"行頭のマークが出る部分を常に表示するようにする
+let g:ale_sign_column_always = 1
+"phpcsのスタイル
+"let g:ale_php_phpcs_standard = '~/phpcs.xml,PSR1,PSR2'
+"phpcbfのスタイル
+"let g:ale_php_phpcbf_standard = '~/phpcs.xml'
+
+"自動整形
+let g:ale_fixers = {
+\ 'php': ['phpcbf'],
+\}
+"ファイル保存時に整形実行
+let g:ale_fix_on_save = 1
+" 保存時のみ実行する
+let g:ale_lint_on_text_changed = 0
+"lint
+let g:ale_linters = {
+  \'javascript': ['eslint'],
+  \'ruby': ['rubocop', 'reek'],
+  \'php': ['phpcs', 'phpcbf'],
+  \'Dockerfile': ['dockerfile_lint', 'hadolint'],
+  \'scss': ['stylelint']
+\}
+let g:ale_dockerfile_hadolint_use_docker = 'enable'
+let g:ale_scss_stylelint_use_global = 1
+" 表示に関する設定
+" let g:ale_sign_error = ''
+" let g:ale_sign_warning = ''
+let g:airline#extensions#ale#open_lnum_symbol = '('
+let g:airline#extensions#ale#close_lnum_symbol = ')'
+" エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
+let g:ale_echo_msg_format = '[%linter%]%code: %%s'
+highlight link ALEErrorSign Tag
+highlight link ALEWarningSign StorageClass
+" Ctrl + jで次の指摘へ、Ctrl + kで前の指摘へ移動
+nmap <silent> <C-w>k <Plug>(ale_previous_wrap)
+nmap <silent> <C-w>j <Plug>(ale_next_wrap)
 '''
+hook_post_source = '''
+let g:ale_linters = {
+  \'Dockerfile': ['dockerfile_lint', 'hadolint']
+\}
+'''
+
 
 # インデントの可視化
 [[plugins]]

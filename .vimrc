@@ -69,6 +69,12 @@ set whichwrap=b,s,h,l,<,>,[,],~
 " カーソルラインをハイライト"
 set cursorline
 
+" 前回編集時のカーソル位置記憶
+augroup vimrcEx
+  au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
+  \ exe "normal g`\"" | endif
+augroup END
+
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 nnoremap j gj
 nnoremap k gk

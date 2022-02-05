@@ -32,8 +32,10 @@ alias gdc="echo git diff --cached; git diff --cached"
 alias gdw="echo git diff --word-diff; git diff --word-diff" # diff per word
 alias git-undo="git reset --soft HEAD^" # 直前のコミットをやめる
 
-alias pbcopy='xsel --clipboard --input'   # copy to clipboard
-alias pbpaste='xsel --clipboard --output' # paste to clipboard
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    alias pbcopy='xsel --clipboard --input'   # copy to clipboard
+    alias pbpaste='xsel --clipboard --output' # paste to clipboard
+fi
 alias g='google' # google defined at .zsh/10_functions.zsh
 
 # OS specific

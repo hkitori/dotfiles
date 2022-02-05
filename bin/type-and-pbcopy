@@ -1,0 +1,9 @@
+#!/bin/sh
+
+/bin/echo -n "type-and-pbcopy > "
+
+while read line
+do
+    /bin/echo $line | pbcopy
+    /bin/echo -n "type-and-pbcopy > "
+done

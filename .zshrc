@@ -118,3 +118,9 @@ export GTAGSLABEL=pygments
 # anyenv起動(pyenv, rbenv...)
 eval "$(anyenv init -)"
 
+# nodebrew for node.js
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# for pip3
+export PATH=$HOME/Library/Python/3.8/bin:$PATH
+

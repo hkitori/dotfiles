@@ -1,9 +1,10 @@
 #!/bin/sh
 
-/bin/echo -n "type-and-pbcopy > "
+msg="Monokaki > "
+/bin/echo -n "$msg"
 
 while read line
 do
     /bin/echo $line | pbcopy
-    /bin/echo -n "type-and-pbcopy > "
+    /bin/echo -n "$msg"
 done

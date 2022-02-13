@@ -122,5 +122,7 @@ eval "$(anyenv init -)"
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 # for pip3
-export PATH=$HOME/Library/Python/3.8/bin:$PATH
+#export PATH=$HOME/Library/Python/3.8/bin:$PATH
 
+# backspace+tabでtab補完を逆順にする
+bindkey '^[[Z' reverse-menu-complete

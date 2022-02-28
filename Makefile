@@ -4,7 +4,8 @@
 
 DOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 CANDIDATES := $(wildcard .??*) bin
-EXCLUSIONS := .DS_Store .git .gitmodules
+COPIES     := .netrc
+EXCLUSIONS := .DS_Store .git .gitmodules $(COPIES)
 DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 .DEFAULT_GOAL := help
@@ -13,18 +14,24 @@ SUBDIRS    := specific
 
 list: ## Show dot files in this repo
 	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
+	@$(foreach val, $(COPIES), /bin/ls -dF $(val);)
 
 install: ## Create symlink to home directory
 	@echo 'Copyright (c) 2013-2015 BABAROT All Rights Reserved.'
-	@echo '==> Start to deploy dotfiles to home directory.'
 	@echo ''
+	@echo '==> Start to deploy dotfiles to home directory.'
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
-	@echo 'subdir'
+	@echo ''
+	@echo '==> Start to copy files to home directory.'
+	@$(foreach val, $(COPIES), cp -fv $(abspath $(val)) $(HOME)/$(val);)
+	@echo ''
+	@echo '==> subdir'
 	@$(foreach subdir,$(SUBDIRS),cd $(subdir) && $(MAKE) $@; cd ..;)
 
 clean: ## Remove the dot files and this repo
 	@echo 'Remove dot files in your home directory...'
 	@-$(foreach val, $(DOTFILES), rm -vrf $(HOME)/$(val);)
+	@-$(foreach val, $(COPIES), rm -vrf $(HOME)/$(val);)
 	#-rm -rf $(DOTPATH)
 	@echo 'subdir'
 	@$(foreach subdir,$(SUBDIRS),cd $(subdir) && $(MAKE) $@; cd ..;)
@@ -39,3 +46,4 @@ debug: ## Show values for debugging this Makefile
 	@echo "CANDIDATES = $(CANDIDATES)"
 	@echo "EXCLUSIONS = $(EXCLUSIONS)"
 	@echo "DOTFILES = $(DOTFILES)"
+	@echo "COPIES = $(COPIES)"

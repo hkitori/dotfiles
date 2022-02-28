@@ -19,8 +19,8 @@ CURPATH       := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 all:
 
 install: ## Create symlink to home directory
-	@echo 'Start to deploy specific dir to home directory.'
 	@echo ''
+	@echo '==> Start to deploy specific dir to home directory.'
 	@ln -sfnv $(abspath $(CURPATH))/$(PFTYPE) $(HOME)/specific
 
 clean: ## Remove the specific dir

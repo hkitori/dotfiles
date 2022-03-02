@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 #==============================================================#
 # Define                                                       #
@@ -63,13 +63,20 @@ for mkv in ${mkvs}; do
 done
 echo    "==========================================================="
 
+work="convert_work"
+if [ ! -d $work ]; then
+    mkdir -p $work
+fi
+
 for mkv in ${mkvs}; do
 	# dts audio -> mp3
-	ffmpeg -i "${mkv}.mkv" -c:v copy -c:a mp3  -c:s copy "${mkv}_mp3.mkv"
+	ffmpeg -i "${mkv}.mkv" -c:v copy -c:a mp3  -c:s copy "${work}/${mkv}_mp3.mkv"
 	if [ $? -ne 0 ]; then
 		echo "Error : ffmepg failed to ${mkv}.mkv..."
 		exit 1
 	fi
+
+    cd $work
 
 	# extract subtitles in pgs format
     mkv="${mkv}_mp3"
@@ -82,7 +89,7 @@ for mkv in ${mkvs}; do
 	fi
 
 	# pgs -> vobsub
-    java -jar BDSup2Sub512.jar -o "${mkv}_vobsub.idx" "${mkv}_pgs.sup"
+    java -jar ~/bin/BDSup2Sub512.jar -o "${mkv}_vobsub.idx" "${mkv}_pgs.sup"
 	if [ $? -ne 0 ]; then
 		echo "Error : java command failed to ${mkv}.mkv..."
 		exit 1
@@ -99,7 +106,7 @@ done
 echo    "==========================================================="
 echo    "以下のmkvファイルのdts audioをmp3に変換しました。"
 for mkv in ${mkvs}; do
-  echo " ${EC_GN}  ${mkv}$ --> ${mkv}_mp3.mkv ${EC_END}"
+  echo " ${EC_GN}  ${mkv}$ --> ${work}/${mkv}_voidsub.mkv ${EC_END}"
 done
 echo    "==========================================================="
 

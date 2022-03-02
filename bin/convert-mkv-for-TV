@@ -101,6 +101,8 @@ for mkv in ${mkvs}; do
 		echo "Error : mkvmerge failed to ${mkv}.mkv..."
 		exit 1
 	fi
+
+    mv "${mkv}.mkv" "${mkv}.mkv.tmp"
 done
 
 echo    "==========================================================="

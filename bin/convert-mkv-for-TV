@@ -26,6 +26,7 @@ usage_func(){
 	echo    "Usage:"
 	echo    "  カレントディレクトリにあるmkvファイルの音声データを"
 	echo    "  synologyで再生できるように、dts audioからmp3に変換します。"
+	echo    "  あとTVで表示できるように字幕もpgsからvobsubに変換します。"
 	echo    "  変換語のファイルは、ファイル名に\"_mp3\"を付与しますので、"
 	echo    "  \"mp3\"がファイル名に含まれているmkvファイルは変換対象外です。"
 	echo    "    ${EC_GN}$sh_name${EC_END}"
@@ -52,24 +53,45 @@ if [ ! -e $path ]; then
 fi
 
 mkvs=`ls -1 ./ | grep "\.mkv" | sed "s|\.mkv||"`
+#mkvs=`ls -1 ./ | grep "t00\.mkv" | sed "s|\.mkv||"`
+#mkvs=`ls -1 ./ | grep "\.mkv" | grep -e "t00" -e "t01" -e "t02" -e "t03" | sed "s|\.mkv||"`
 
 echo    "==========================================================="
-echo    "以下のmkvファイルのdts audioをmp3に変換します。"
+echo    "以下のmkvファイルを変換します。"
 for mkv in ${mkvs}; do
   echo " ${EC_GN}  ${mkv} ${EC_END}"
 done
 echo    "==========================================================="
 
-mkdir -p mp3
-if [ $? -ne 0 ]; then
-	echo "Error : can't mkdir mp3..."
-	exit 1
-fi
-
 for mkv in ${mkvs}; do
-	ffmpeg -i ${mkv}.mkv -c:v copy -c:a mp3  -c:s copy mp3/${mkv}_mp3.mkv
+	# dts audio -> mp3
+	ffmpeg -i "${mkv}.mkv" -c:v copy -c:a mp3  -c:s copy "${mkv}_mp3.mkv"
 	if [ $? -ne 0 ]; then
 		echo "Error : ffmepg failed to ${mkv}.mkv..."
+		exit 1
+	fi
+
+	# extract subtitles in pgs format
+    mkv="${mkv}_mp3"
+    sub_track=`mkvinfo ${mkv}.mkv | grep -B6 subtitles| head -1 | cut -d' ' -f 6`
+    sub_track=`expr ${sub_track} - 1`
+    mkvextract tracks ${mkv}.mkv ${sub_track}:${mkv}_pgs.sup
+	if [ $? -ne 0 ]; then
+		echo "Error : mkvextract failed to ${mkv}.mkv..."
+		exit 1
+	fi
+
+	# pgs -> vobsub
+    java -jar BDSup2Sub512.jar -o "${mkv}_vobsub.idx" "${mkv}_pgs.sup"
+	if [ $? -ne 0 ]; then
+		echo "Error : java command failed to ${mkv}.mkv..."
+		exit 1
+	fi
+
+	# merge vobsub into mkv
+    mkvmerge -o "${mkv}_vobsub.mkv" "${mkv}.mkv" "${mkv}_vobsub.idx"
+	if [ $? -ne 0 ]; then
+		echo "Error : mkvmerge failed to ${mkv}.mkv..."
 		exit 1
 	fi
 done
@@ -77,7 +99,7 @@ done
 echo    "==========================================================="
 echo    "以下のmkvファイルのdts audioをmp3に変換しました。"
 for mkv in ${mkvs}; do
-  echo " ${EC_GN}  ${mkv}$ --> mp3/${mkv}_mp3.mkv ${EC_END}"
+  echo " ${EC_GN}  ${mkv}$ --> ${mkv}_mp3.mkv ${EC_END}"
 done
 echo    "==========================================================="
 

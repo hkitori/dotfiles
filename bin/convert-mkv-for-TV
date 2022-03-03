@@ -69,8 +69,13 @@ if [ ! -d $work ]; then
 fi
 
 for mkv in ${mkvs}; do
+	if [ -f ${work}/${mkv}_mp3_vobsub.mkv ]; then
+        echo "${EC_GN}skipped ${mkv}.mkv as it was already converted${EC_END}"
+        continue
+    fi
+
 	# dts audio -> mp3
-	ffmpeg -i "${mkv}.mkv" -c:v copy -c:a mp3  -c:s copy "${work}/${mkv}_mp3.mkv"
+	ffmpeg -i "${mkv}.mkv" -c:v copy -c:a mp3 -c:s copy "${work}/${mkv}_mp3.mkv"
 	if [ $? -ne 0 ]; then
 		echo "Error : ffmepg failed to ${mkv}.mkv..."
 		exit 1
@@ -82,6 +87,10 @@ for mkv in ${mkvs}; do
     mkv="${mkv}_mp3"
     sub_track=`mkvinfo ${mkv}.mkv | grep -B6 subtitles| head -1 | cut -d' ' -f 6`
     sub_track=`expr ${sub_track} - 1`
+    if [ -z $sub_track ];then
+        echo "${EC_GN}skipped ${mkv}_mp3.mkv as it has no subtitle${EC_END}"
+        continue
+    fi
     mkvextract tracks ${mkv}.mkv ${sub_track}:${mkv}_pgs.sup
 	if [ $? -ne 0 ]; then
 		echo "Error : mkvextract failed to ${mkv}.mkv..."
@@ -103,6 +112,8 @@ for mkv in ${mkvs}; do
 	fi
 
     mv "${mkv}.mkv" "${mkv}.mkv.tmp"
+
+    cd ../
 done
 
 echo    "==========================================================="

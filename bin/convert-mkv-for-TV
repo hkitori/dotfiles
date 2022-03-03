@@ -19,19 +19,19 @@ sh_name=`basename $0`
 #==============================================================#
 
 usage_func(){
-	# メニュー表示
-	echo    ""
-	echo    "encoding for this script: UTF-8"
-	echo    "==========================================================="
-	echo    "Usage:"
-	echo    "  カレントディレクトリにあるmkvファイルの音声データを"
-	echo    "  synologyで再生できるように、dts audioからmp3に変換します。"
-	echo    "  あとTVで表示できるように字幕もpgsからvobsubに変換します。"
-	echo    "  変換語のファイルは、ファイル名に\"_mp3\"を付与しますので、"
-	echo    "  \"mp3\"がファイル名に含まれているmkvファイルは変換対象外です。"
-	echo    "    ${EC_GN}$sh_name${EC_END}"
-	echo    "==========================================================="
-	echo    ""
+    # メニュー表示
+    echo    ""
+    echo    "encoding for this script: UTF-8"
+    echo    "==========================================================="
+    echo    "Usage:"
+    echo    "  カレントディレクトリにあるmkvファイルの音声データを"
+    echo    "  synologyで再生できるように、dts audioからmp3に変換します。"
+    echo    "  あとTVで表示できるように字幕もpgsからvobsubに変換します。"
+    echo    "  変換語のファイルは、ファイル名に\"_mp3\"を付与しますので、"
+    echo    "  \"mp3\"がファイル名に含まれているmkvファイルは変換対象外です。"
+    echo    "    ${EC_GN}$sh_name${EC_END}"
+    echo    "==========================================================="
+    echo    ""
 }
 
 
@@ -42,14 +42,14 @@ usage_func(){
 # パラメータ数チェック
 
 if [ $# -ne 0 ]; then
-	usage_func
-	exit 1
+    usage_func
+    exit 1
 fi
 
 # 第1パラメータチェック
 if [ ! -e $path ]; then
-	echo "Error : $1 not found."
-	exit 1
+    echo "Error : $1 not found."
+    exit 1
 fi
 
 mkvs=`ls -1 ./ | grep "\.mkv" | sed "s|\.mkv||"`
@@ -69,22 +69,22 @@ if [ ! -d $work ]; then
 fi
 
 for mkv in ${mkvs}; do
-	if [ -f ${work}/${mkv}_mp3_vobsub.mkv ]; then
+    if [ -f ${work}/${mkv}_mp3_vobsub.mkv ]; then
         echo "${EC_GN}skipped ${mkv}.mkv as it was already converted${EC_END}"
         continue
     fi
 
-	# dts audio -> mp3
-	ffmpeg -i "${mkv}.mkv" -c:v copy -c:a mp3 -c:s copy "${work}/${mkv}_mp3.mkv"
-	if [ $? -ne 0 ]; then
-		echo "Error : ffmepg failed to ${mkv}.mkv..."
-		exit 1
-	fi
+    # dts audio -> mp3
+    if [ ! -f ${work}/${mkv}_mp3.mkv ]; then
+        ffmpeg -i "${mkv}.mkv" -c:v copy -c:a mp3 -c:s copy "${work}/${mkv}_mp3.mkv"
+        if [ $? -ne 0 ]; then
+            echo "Error : ffmepg failed to ${mkv}.mkv..."
+            exit 1
+        fi
+    fi
 
-    cd $work
-
-	# extract subtitles in pgs format
-    mkv="${mkv}_mp3"
+    # extract subtitles in pgs format
+    mkv="$work/${mkv}_mp3"
     sub_track=`mkvinfo ${mkv}.mkv | grep -B6 subtitles| head -1 | cut -d' ' -f 6`
     sub_track=`expr ${sub_track} - 1`
     if [ -z $sub_track ];then
@@ -92,28 +92,26 @@ for mkv in ${mkvs}; do
         continue
     fi
     mkvextract tracks ${mkv}.mkv ${sub_track}:${mkv}_pgs.sup
-	if [ $? -ne 0 ]; then
-		echo "Error : mkvextract failed to ${mkv}.mkv..."
-		exit 1
-	fi
+    if [ $? -ne 0 ]; then
+        echo "Error : mkvextract failed to ${mkv}.mkv..."
+        exit 1
+    fi
 
-	# pgs -> vobsub
+    # pgs -> vobsub
     java -jar ~/bin/BDSup2Sub512.jar -o "${mkv}_vobsub.idx" "${mkv}_pgs.sup"
-	if [ $? -ne 0 ]; then
-		echo "Error : java command failed to ${mkv}.mkv..."
-		exit 1
-	fi
+    if [ $? -ne 0 ]; then
+        echo "Error : java command failed to ${mkv}.mkv..."
+        exit 1
+    fi
 
-	# merge vobsub into mkv
+    # merge vobsub into mkv
     mkvmerge -o "${mkv}_vobsub.mkv" "${mkv}.mkv" "${mkv}_vobsub.idx"
-	if [ $? -ne 0 ]; then
-		echo "Error : mkvmerge failed to ${mkv}.mkv..."
-		exit 1
-	fi
+    if [ $? -ne 0 ]; then
+        echo "Error : mkvmerge failed to ${mkv}.mkv..."
+        exit 1
+    fi
 
     mv "${mkv}.mkv" "${mkv}.mkv.tmp"
-
-    cd ../
 done
 
 echo    "==========================================================="

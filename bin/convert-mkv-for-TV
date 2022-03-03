@@ -56,12 +56,14 @@ mkvs=`ls -1 ./ | grep "\.mkv" | sed "s|\.mkv||"`
 #mkvs=`ls -1 ./ | grep "t00\.mkv" | sed "s|\.mkv||"`
 #mkvs=`ls -1 ./ | grep "\.mkv" | grep -e "t00" -e "t01" -e "t02" -e "t03" | sed "s|\.mkv||"`
 
+set +x #デバッグ出力終了
 echo    "==========================================================="
 echo    "以下のmkvファイルを変換します。"
 for mkv in ${mkvs}; do
   echo " ${EC_GN}  ${mkv} ${EC_END}"
 done
 echo    "==========================================================="
+set -x #デバッグ出力開始
 
 work="convert_work"
 if [ ! -d $work ]; then
@@ -114,6 +116,7 @@ for mkv in ${mkvs}; do
     mv "${mkv}.mkv" "${mkv}.mkv.tmp"
 done
 
+set +x #デバッグ出力終了
 echo    "==========================================================="
 echo    "以下のmkvファイルのdts audioをmp3に変換しました。"
 for mkv in ${mkvs}; do

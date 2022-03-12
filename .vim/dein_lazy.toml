@@ -1,0 +1,9 @@
+
+# toml highlighting
+# Reference:
+# https://tmg0525.hatenadiary.jp/entry/2017/09/02/234850
+# https://qiita.com/ShoutaWATANABE/items/2cda094b255556c7c28d
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+

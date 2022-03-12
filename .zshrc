@@ -126,3 +126,6 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 # backspace+tabでtab補完を逆順にする
 bindkey '^[[Z' reverse-menu-complete
+
+# Rust
+source $HOME/.cargo/env

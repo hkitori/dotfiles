@@ -1,0 +1,16 @@
+#!/bin/bash -x
+
+# 動画URLの部分はダブルクォーテーションでくくらないと、
+# zsh: no matches found:... となってしまうので注意
+#youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 $1
+#youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mkv $1
+youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' \
+    --embed-subs \
+    --sub-lang en \
+    --embed-thumbnail \
+    --merge-output-format mp4 $1
+
+# --sub-lang: youtoube --list-subs URLででてきた字幕名を入れる
+# --embed-thumbnail: mp3 mp4a/mp4 のみサポート(mkvはだめ)
+# --embed-subs: mp4かmkvのみ
+

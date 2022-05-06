@@ -27,10 +27,18 @@ set number
 set backspace=indent,eol,start
 "クリップボードにコピーする ("+y)
 if system('uname -s') == "Darwin\n"
+  " MAC
   set clipboard=unnamed "OSX
-else
-  set clipboard=unnamedplus "Linux
+elseif system('uname -s') == "Linux\n"
+  if system('uname -r') =~ "microsoft"
+    " WSL + Windows Terminal
+    " 特に設定しなくても、ctrl+shift+c、ctrl+shift+vでコピペできる
+  else
+    " Linux
+    set clipboard=unnamedplus
+  endif
 endif
+
 
 " カーソルキーのFix
 set nocompatible

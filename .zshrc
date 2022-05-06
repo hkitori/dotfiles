@@ -1,3 +1,4 @@
+# https://qiita.com/kooooohe/items/fb106e0a0f0969b4ee38
 
 # プロンプト
 if [ $UID -eq 0 ]; then
@@ -116,7 +117,8 @@ autoload -U compinit && compinit -u
 export GTAGSLABEL=pygments
 
 # anyenv起動(pyenv, rbenv...)
-eval "$(anyenv init -)"
+#export PATH=$HOME/.anyenv/bin:$PATH
+#eval "$(anyenv init -)"
 
 # nodebrew for node.js
 export PATH=$HOME/.nodebrew/current/bin:$PATH
@@ -128,7 +130,9 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 bindkey '^[[Z' reverse-menu-complete
 
 # Rust
-source $HOME/.cargo/env
+#if [ -f $HOME/.cargo/env ]; then
+#    source $HOME/.cargo/env
+#fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]

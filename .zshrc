@@ -141,3 +141,16 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+
+# ctrl+@でghq+pecoを起動する
+function ghq-peco () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER" --prompt "[ghq+peco] select the repository you want to move!")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N ghq-peco
+bindkey '^@' ghq-peco # ctrl + @
+

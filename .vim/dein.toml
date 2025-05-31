@@ -284,7 +284,7 @@ repo = 'Shougo/neosnippet-snippets'
 
 # 検索結果の件数を表示
 [[plugins]]
-"repo = 'osyo-manga/vim-anzu'
+repo = 'osyo-manga/vim-anzu'
 hook_add = '''
     " mapping
     noremap n <Plug>(anzu-n-with-echo)
@@ -304,3 +304,16 @@ repo = 'kana/vim-operator-user'
 [[plugins]]
 repo = 'farmergreg/vim-lastplace'
 
+
+# rust official plugin with rust formatter setting
+[[plugins]]
+repo = "rust-lang/rust.vim"
+hook_add = '''
+let g:rustfmt_autosave = 1
+'''
+# coc for LSP (for rust analyzer)
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+branch = 'release'
+# [coc.nvim] build/index.js not found, please install dependencies and compile coc.nvim by: npm ci
+# というエラーがでたら、vimで": call coc#util#install()"を実行

@@ -65,12 +65,12 @@ if [ ! -e $path ]; then
 	exit 1
 fi
 
-echo    "==========================================================="
-echo    " ${EC_GN}Start monitoring with ${sh_name}!${EC_END}"
-echo ""
-echo    " If a file change occurs in \"${EC_GN}${path}${EC_END}\","
-echo    " run the command \"${EC_GN}${cmd}${EC_END}\"."
-echo    "==========================================================="
+printf    "===========================================================\n"
+printf    " ${EC_GN}Start monitoring with ${sh_name}!${EC_END} \n"
+printf "\n"
+printf    " If a file change occurs in \"${EC_GN}${path}${EC_END}\", \n"
+printf    " run the command \"${EC_GN}${cmd}${EC_END}\". \n"
+printf    "===========================================================\n"
 
 # 監視開始
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -87,15 +87,15 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 		ret=$?
 
 		if [ ${ret} -eq 0 ]; then
-			echo    "==========================================================="
-			echo    " ${EC_GN}${cmd}${EC_END}"
-			echo    " ${EC_GN} --> OK (return 0)${EC_END}"
-			echo    "==========================================================="
+			printf "===========================================================¥n"
+			printf " ${EC_GN}${cmd}${EC_END}¥n"
+			printf " ${EC_GN} --> OK (return 0)${EC_END}¥n"
+			printf "===========================================================¥n"
 		else
-			echo    "==========================================================="
-			echo    " ${EC_RN}${cmd}${EC_END}"
-			echo    " ${EC_RN} --> NG (return ${ret})${EC_END}"
-			echo    "==========================================================="
+			printf "===========================================================¥n"
+			printf " ${EC_RN}${cmd}${EC_END}¥n"
+			printf " ${EC_RN} --> NG (return ${ret})${EC_END}¥n"
+			printf "===========================================================¥n"
 		fi
 	done
 elif [[ "$OSTYPE" == "darwin"* ]]; then

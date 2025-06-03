@@ -154,3 +154,6 @@ function ghq-peco () {
 zle -N ghq-peco
 bindkey '^@' ghq-peco # ctrl + @
 
+# for Rust
+. "$HOME/.cargo/env"
+

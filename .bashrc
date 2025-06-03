@@ -125,3 +125,4 @@ function peco-select-history() {
 }
 bind -x '"\C-r": peco-select-history'
 
+. "$HOME/.cargo/env"

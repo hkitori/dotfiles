@@ -19,8 +19,6 @@ set fileencoding=utf-8
 set fileencodings=ucs-boms,utf-8,euc-jp,cp932
 " 改行コードの自動判別、左側が優先される
 set fileformats=unix,dos,mac
-" □や○文字が崩れる問題を解決
-set ambiwidth=double
 " 行番号の表示
 set number
 " insertモードでもバックスペースが効くようにする

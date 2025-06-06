@@ -316,5 +316,11 @@ let g:rustfmt_autosave = 1
 [[plugins]]
 repo = 'neoclide/coc.nvim'
 branch = 'release'
+build = 'call coc#util#install()'
+#hook_add = '''
+#"let g:coc_global_extensions = [
+#\   'coc-rust-analyzer',
+#\]
+#'''
 # [coc.nvim] build/index.js not found, please install dependencies and compile coc.nvim by: npm ci
 # というエラーがでたら、vimで": call coc#util#install()"を実行

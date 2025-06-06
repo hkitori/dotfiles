@@ -316,7 +316,14 @@ let g:rustfmt_autosave = 1
 [[plugins]]
 repo = 'neoclide/coc.nvim'
 branch = 'release'
-build = 'call coc#util#install()'
+#build = 'call coc#util#install()'
+#hook_add = '''
+#if empty(glob(expand("~/.vim/.cache/dein/repos/github.com/neoclide/coc.nvim/node_modules")))
+#    echo "coc.nvim の依存モジュールが見つからないのでインストールします…"
+#    call coc#util#install()
+#    echo "coc.nvim のインストールが完了しました。"
+#endif
+#'''
 #hook_add = '''
 #"let g:coc_global_extensions = [
 #\   'coc-rust-analyzer',

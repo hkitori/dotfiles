@@ -157,3 +157,9 @@ bindkey '^@' ghq-peco # ctrl + @
 # for Rust
 . "$HOME/.cargo/env"
 
+
+
+# Bracketed Paste モードの無効化
+#   ブラウザなどからzshコンソールにコピペしたとき
+#   行頭と行末にごみ(^[[200~)がつかないようにする
+unset zle_bracketed_paste

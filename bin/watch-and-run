@@ -15,12 +15,12 @@
 # Define                                                       #
 #==============================================================#
 
-# echo色付け
-EC_RN="\033[0;31m"   # echoの修飾 : Red
-EC_RU="\033[4;31m"   # echoの修飾 : Red/Underscore(下線)
-EC_GN="\033[0;32m"   # echoの修飾 : Green
-EC_GU="\033[4;32m"   # echoの修飾 : Green/Underscore(下線)
-EC_END="\033[0;39m"  # echoの修飾 : 適用解除
+# printf色付け
+EC_RN="\033[0;31m"   # printfの修飾 : Red
+EC_RU="\033[4;31m"   # printfの修飾 : Red/Underscore(下線)
+EC_GN="\033[0;32m"   # printfの修飾 : Green
+EC_GU="\033[4;32m"   # printfの修飾 : Green/Underscore(下線)
+EC_END="\033[0;39m"  # printfの修飾 : 適用解除
 
 # 本スクリプトの名前
 sh_name=`basename $0`
@@ -30,16 +30,16 @@ sh_name=`basename $0`
 #==============================================================#
 
 usage_func(){
-	# メニュー表示
-	echo    ""
-	echo    "encoding for this script: UTF-8"
-	echo    "==========================================================="
-	echo    "Usage:"
-	echo    "    ${EC_GN}$sh_name <path> <cmd>${EC_END}"
-	echo    "         -> path : 監視したいファイルorディレクトリ"
-	echo    "         -> cmd  : 変更を検出したときに実行するコマンド"
-	echo    "==========================================================="
-	echo    ""
+    # メニュー表示
+    printf    "\n"
+    printf    "encoding for this script: UTF-8\n"
+    printf    "===========================================================\n"
+    printf    "Usage:\n"
+    printf    "    ${EC_GN}$sh_name <path> <cmd>${EC_END}\n"
+    printf    "         -> path : 監視したいファイルorディレクトリ\n"
+    printf    "         -> cmd  : 変更を検出したときに実行するコマンド\n"
+    printf    "===========================================================\n"
+    printf    "\n"
 }
 
 
@@ -50,8 +50,8 @@ usage_func(){
 # パラメータ数チェック
 
 if [ $# -ne 2 ]; then
-	usage_func
-	exit 1
+    usage_func
+    exit 1
 fi
 
 # パラメータを変数に格納
@@ -61,8 +61,8 @@ cmd=$*
 
 # 第1パラメータチェック
 if [ ! -e $path ]; then
-	echo "Error : $1 not found."
-	exit 1
+    printf "Error : $1 not found.\n"
+    exit 1
 fi
 
 printf    "===========================================================\n"
@@ -74,49 +74,49 @@ printf    "===========================================================\n"
 
 # 監視開始
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-	while true ; do
-		# linux
-		#   -e modify : write等によるファイルの中身の変更を監視
-		#   -e attrib : アクセス件やタイムスタンプ等のメタデータ変更を監視
-		#   -r        : $pathを再帰的に監視
-		#   --exluce  : .swpを監視対象から除外
-		inotifywait -e modify -r --exclude \.swp $path 2> /dev/null
-		#inotifywait -e modify -e attrib -r --exclude \.swp $path 2> /dev/null
-		# inotifywaitが$pathの変更を検出したら、$cmd実行
-		eval $cmd
-		ret=$?
+    while true ; do
+        # linux
+        #   -e modify : write等によるファイルの中身の変更を監視
+        #   -e attrib : アクセス件やタイムスタンプ等のメタデータ変更を監視
+        #   -r        : $pathを再帰的に監視
+        #   --exluce  : .swpを監視対象から除外
+        inotifywait -e modify -r --exclude \.swp $path 2> /dev/null
+        #inotifywait -e modify -e attrib -r --exclude \.swp $path 2> /dev/null
+        # inotifywaitが$pathの変更を検出したら、$cmd実行
+        eval $cmd
+        ret=$?
 
-		if [ ${ret} -eq 0 ]; then
-			printf "===========================================================¥n"
-			printf " ${EC_GN}${cmd}${EC_END}¥n"
-			printf " ${EC_GN} --> OK (return 0)${EC_END}¥n"
-			printf "===========================================================¥n"
-		else
-			printf "===========================================================¥n"
-			printf " ${EC_RN}${cmd}${EC_END}¥n"
-			printf " ${EC_RN} --> NG (return ${ret})${EC_END}¥n"
-			printf "===========================================================¥n"
-		fi
-	done
+        if [ ${ret} -eq 0 ]; then
+            printf "=========================================================== \n"
+            printf " ${EC_GN}${cmd}${EC_END} \n"
+            printf " ${EC_GN} --> OK (return 0)${EC_END} \n"
+            printf "=========================================================== \n"
+        else
+            printf "=========================================================== \n"
+            printf " ${EC_RN}${cmd}${EC_END} \n"
+            printf " ${EC_RN} --> NG (return ${ret})${EC_END} \n"
+            printf "=========================================================== \n"
+        fi
+    done
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-	# Mac OSX
-	fswatch -o $path | xargs -n1 -I{} $cmd
-	::
+    # Mac OSX
+    fswatch -o $path | xargs -n1 -I{} $cmd
+    ::
 elif [[ "$OSTYPE" == "cygwin" ]]; then
-	# POSIX compatibility layer and Linux environment emulation for Windows
-	::
+    # POSIX compatibility layer and Linux environment emulation for Windows
+    ::
 elif [[ "$OSTYPE" == "msys" ]]; then
-	# Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
-	::
+    # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+    ::
 elif [[ "$OSTYPE" == "win32" ]]; then
-	# I'm not sure this can happen.
-	::
+    # I'm not sure this can happen.
+    ::
 elif [[ "$OSTYPE" == "freebsd"* ]]; then
-	# ...
-	::
+    # ...
+    ::
 else
-	# Unknown.
-	::
+    # Unknown.
+    ::
 fi
 
 

@@ -90,14 +90,39 @@ nnoremap <up> gk
 " GNU global (gtags)
 " Gtagsのインデックスファイル内をgrep
 map <C-g> :Gtags -g <C-r><C-w><CR>
+#nnoremap <silent> <expr> <C-k>
+#      \ CocAction('hasProvider','references')
+#      \   ? '<Plug>(coc-references)'
+#      \   : ':silent !global --result=grep -qe '.expand('<cword>').'<CR>'
+
+
 " そのCファイルの関数一覧
 map <C-l> :Gtags -f %<CR>
 " 関数名の一部からの関数一覧
 map <C-c> :Gtags -c %<CR>
+
+" language serverのインストールと起動(vim-lsp)
+"map <C-a> :LspInstallServer<cr>"
+" language serverのwarning内容表示(vim-lsp)
+"map <C-a> :LspDocumentDiagnostics<cr>"
+
 " カーソル以下の定義を探す
-map <C-j> :Gtags <C-r><C-w><CR>
+"map <C-j> :Gtags <C-r><C-w><CR>
+" 定義へジャンプ（CoC が provider を持っていればそちら、なければ Gtags で検索）
+nnoremap <silent> <expr> <C-j>
+      \ CocAction('hasProvider', 'definition')
+      \   ? '<Plug>(coc-definition)'
+      \   : ':Gtags <C-r><C-w><CR>'
+
 " カーソル以下のコール元を探す
-map <C-k> :Gtags -r <C-r><C-w><CR>
+"map <C-k> :Gtags -r <C-r><C-w><CR>
+" 参照（コール元）を検索（CoC が provider を持っていればそちら、なければ Gtags -r）
+nnoremap <silent> <expr> <C-k>
+      \ CocAction('hasProvider', 'references')
+      \   ? '<Plug>(coc-references)'
+      \   : ':Gtags -r <C-r><C-w><CR>'
+
+
 " 次の検索結果
 map <C-n> :cn<CR>
 " 前の検索結果

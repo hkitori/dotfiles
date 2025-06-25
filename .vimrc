@@ -90,10 +90,10 @@ nnoremap <up> gk
 " GNU global (gtags)
 " Gtagsのインデックスファイル内をgrep
 map <C-g> :Gtags -g <C-r><C-w><CR>
-#nnoremap <silent> <expr> <C-k>
-#      \ CocAction('hasProvider','references')
-#      \   ? '<Plug>(coc-references)'
-#      \   : ':silent !global --result=grep -qe '.expand('<cword>').'<CR>'
+"nnoremap <silent> <expr> <C-k>
+"      \ CocAction('hasProvider','references')
+"      \   ? '<Plug>(coc-references)'
+"      \   : ':silent !global --result=grep -qe '.expand('<cword>').'<CR>'
 
 
 " そのCファイルの関数一覧

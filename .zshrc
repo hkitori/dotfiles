@@ -87,6 +87,7 @@ typeset -gx -U path
 path=( \
     ~/specific/bin(N-/) \
     ~/bin(N-/) \
+    ~/script(N-/) \
     "$path[@]" \
     )
 

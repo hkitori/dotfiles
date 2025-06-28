@@ -35,8 +35,16 @@ alias git-undo="git reset --soft HEAD^" # 直前のコミットをやめる
 alias war="~/bin/watch-and-run"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    alias pbcopy='xsel --clipboard --input'   # copy to clipboard
-    alias pbpaste='xsel --clipboard --output' # paste to clipboard
+    if command -v xsel >/dev/null 2>&1; then
+        alias pbcopy='xsel --clipboard --input'   # copy to clipboard
+        alias pbpaste='xsel --clipboard --output' # paste to clipboard
+    fi
+    if command -v wl-copy >/dev/null 2>&1; then
+        alias pbcopy='wl-copy'
+    fi
+    if command -v wl-paste >/dev/null 2>&1; then
+        alias pbpaste='wl-paste'
+    fi
 fi
 alias g='google' # google defined at .zsh/10_functions.zsh
 
